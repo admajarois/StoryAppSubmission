@@ -1,3 +1,10 @@
 <resources>
-    <string name="app_name">StoryAppSubmission</string>
+    <string name="app_name">Bacapad</string>
+    <string name="login_label">Login</string>
+    <string name="sign_up_label">Sign Up</string>
+    <string name="username_label">Username</string>
+    <string name="email_label">Email</string>
+    <string name="password_label">Password</string>
+    <string name="greetings_login">Halo</string>
+    <string name="missed_login">Selamat datang kembali, kamu telah dirindukan</string>
 </resources>
