@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ConstraintSet android:id="@+id/start">
+        <Constraint android:id="@+id/view" />
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/end">
+        <Constraint android:id="@id/view" />
+        <Constraint
+            android:id="@+id/imageView"
+            app:layout_constraintEnd_toEndOf="@+id/view"
+            android:layout_width="192dp"
+            android:layout_height="192dp"
+            app:layout_constraintBottom_toBottomOf="@+id/view" />
+    </ConstraintSet>
+
+    <Transition
+        app:constraintSetEnd="@id/end"
+        app:constraintSetStart="@+id/start"
+        app:autoTransition="animateToEnd"
+        app:duration="3000" />
+    <ConstraintSet
+        android:id="@+id/background"
+        app:deriveConstraintsFrom="@+id/end" >
+        <Constraint
+            android:id="@+id/view"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="0dp"
+            android:layout_height="250dp"
+            android:layout_marginEnd="16dp"
+            android:alpha="1"
+            android:layout_marginStart="16dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="16dp" />
+    </ConstraintSet>
+    <Transition
+        app:constraintSetStart="@+id/end"
+        app:constraintSetEnd="@+id/background"
+        app:autoTransition="animateToEnd" />
+    <ConstraintSet
+        android:id="@+id/greeting"
+        app:deriveConstraintsFrom="@+id/background" >
+        <Constraint
+            android:id="@+id/greeting_login"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:alpha="1"
+            android:layout_marginStart="16dp"
+            app:layout_constraintTop_toTopOf="@+id/view"
+            app:layout_constraintStart_toStartOf="@+id/view"
+            android:layout_marginTop="16dp" />
+        <Constraint
+            android:id="@+id/missed_login"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/greeting_login"
+            android:alpha="1"
+            android:layout_marginStart="16dp"
+            app:layout_constraintStart_toStartOf="@+id/view" />
+        <Constraint
+            android:id="@+id/view"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="0dp"
+            android:layout_height="250dp"
+            android:layout_marginEnd="16dp"
+            android:alpha="1"
+            android:layout_marginStart="16dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="16dp" />
+    </ConstraintSet>
+    <Transition
+        app:constraintSetStart="@+id/background"
+        app:constraintSetEnd="@+id/greeting"
+        app:autoTransition="animateToEnd" />
+    <ConstraintSet
+        android:id="@+id/FieldAndButton"
+        app:deriveConstraintsFrom="@+id/greeting" >
+        <Constraint
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:alpha="1"
+            android:id="@+id/email_label"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view"
+            android:layout_marginTop="24dp"
+            android:layout_marginStart="16dp" />
+        <Constraint
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="0dp"
+            app:layout_constraintTop_toBottomOf="@+id/email_label"
+            android:id="@+id/email_edit_layout"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="8dp" />
+        <Constraint
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            android:id="@+id/password_label"
+            app:layout_constraintTop_toBottomOf="@+id/email_edit_layout"
+            android:layout_marginTop="32dp"
+            android:layout_marginStart="16dp" />
+        <Constraint
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            app:layout_constraintTop_toBottomOf="@+id/password_label"
+            app:layout_constraintStart_toStartOf="parent"
+            android:id="@+id/password_edit_layout"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp" />
+        <Constraint
+            android:layout_height="64dp"
+            android:layout_width="0dp"
+            app:layout_constraintTop_toBottomOf="@+id/password_edit_layout"
+            android:id="@+id/button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="32dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp" />
+    </ConstraintSet>
+    <Transition
+        app:constraintSetStart="@+id/greeting"
+        app:constraintSetEnd="@+id/FieldAndButton"
+        app:autoTransition="animateToEnd" />
+</MotionScene>

@@ -13,4 +13,8 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+    <style name="Theme.StoryAppSubmission.NoTitleBar" parent="Theme.StoryAppSubmission">
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
 </resources>
