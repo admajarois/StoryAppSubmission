@@ -93,22 +93,32 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/button_login"
         android:layout_width="0dp"
         android:layout_height="64dp"
         android:text="@string/login_label"
         app:layout_constraintTop_toBottomOf="parent"
         tools:layout_editor_absoluteX="289dp" />
 
+    <TextView
+        android:id="@+id/tv_to_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/to_register"
+        app:layout_constraintTop_toBottomOf="@+id/button_login"
+        tools:layout_editor_absoluteY="282dp" />
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="8dp"
+        android:contentDescription="@string/image_login"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/view"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/character_login_480" />
+
 
 </androidx.constraintlayout.motion.widget.MotionLayout>

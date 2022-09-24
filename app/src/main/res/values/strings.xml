@@ -13,4 +13,6 @@
     <string name="bt_camera">Camera</string>
     <string name="bt_gallery">Gallery</string>
     <string name="bt_upload">Upload</string>
+    <string name="image_login">Gambar orang dengan komputer</string>
+    <string name="to_register">Belum memiliki akun? klik untuk mendaftar</string>
 </resources>
