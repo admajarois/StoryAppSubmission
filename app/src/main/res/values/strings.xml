@@ -15,4 +15,7 @@
     <string name="bt_upload">Upload</string>
     <string name="image_login">Gambar orang dengan komputer</string>
     <string name="to_register">Belum memiliki akun? klik untuk mendaftar</string>
+    <string name="greeting_silahkan">Silahkan,</string>
+    <string name="greeting_register">Membuat akun terlebih dahulu!</string>
+    <string name="floating_girl">Gambar orang mengapung</string>
 </resources>

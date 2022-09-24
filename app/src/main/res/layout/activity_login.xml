@@ -46,7 +46,7 @@
         app:layout_constraintTop_toBottomOf="@+id/greeting_login" />
 
     <TextView
-        android:id="@+id/email_label"
+        android:id="@+id/email_label_register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/email_label"
@@ -58,7 +58,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email_label">
+        app:layout_constraintTop_toBottomOf="@+id/email_label_register">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/email_edit_text"
@@ -69,7 +69,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
-        android:id="@+id/password_label"
+        android:id="@+id/password_label_register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:alpha="0"
@@ -82,7 +82,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password_label">
+        app:layout_constraintTop_toBottomOf="@+id/password_label_register">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/password_edit_text"
