@@ -7,4 +7,7 @@
     <string name="password_label">Password</string>
     <string name="greetings_login">Halo</string>
     <string name="missed_login">Selamat datang kembali, kamu telah dirindukan</string>
+    <string name="title_story">Lorem ipsum dolor sit amet</string>
+    <string name="story_sinopsis">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut sapien id urna tincidunt pretium. In luctus odio lectus, sit amet convallis dui pretium vitae. Nunc interdum a nunc et finibus. Sed accumsan est vitae venenatis euismod. Nulla sed nunc augue. In iaculis ac felis ac commodo. Vivamus molestie sollicitudin orci nec convallis. Morbi consequat tincidunt tempus. Vestibulum eget eleifend justo, et semper diam. Mauris scelerisque nisi non purus efficitur, vel scelerisque tellus mattis. Donec luctus, leo a blandit accumsan, nulla sem tempor nulla, id sollicitudin tortor diam nec velit. Curabitur sed leo at est varius ultrices bibendum ut tortor. Maecenas cursus tincidunt nulla, nec laoreet neque ornare at. Nam blandit elementum ligula at bibendum.</string>
+    <string name="thumbnail_story">Ini gambar story</string>
 </resources>
