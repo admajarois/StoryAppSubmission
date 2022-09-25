@@ -5,11 +5,12 @@ import android.graphics.Canvas
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.Gravity
+import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
 import com.admaja.storyappsubmission.R
 import com.google.android.material.button.MaterialButton
 
-class CustomButton: MaterialButton {
+class CustomButton: AppCompatButton {
 
     private lateinit var enableButtonBackground: Drawable
     private lateinit var disableButtonBackground: Drawable

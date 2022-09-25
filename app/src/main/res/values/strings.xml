@@ -19,8 +19,9 @@
     <string name="greeting_register">Create an account first!</string>
     <string name="floating_girl">Image of people floating</string>
     <string name="password_alert">Password cannot be less than 6 characters</string>
-    <string name="empty_email_alert">Email cannot be empty</string>
     <string name="invalid_email_alert">Incorrect email format</string>
-    <string name="empty_name_alert">Name cannot be empty</string>
     <string name="must_filled">Can\'t be empty</string>
+    <string name="name_hint">Enter your name here</string>
+    <string name="email_hint">Enter your email here</string>
+    <string name="password_hint">Enter your password here</string>
 </resources>

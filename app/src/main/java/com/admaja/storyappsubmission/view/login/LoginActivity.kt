@@ -3,8 +3,10 @@ package com.admaja.storyappsubmission.view.login
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.admaja.storyappsubmission.R
+import android.text.Editable
+import android.text.TextWatcher
 import com.admaja.storyappsubmission.databinding.ActivityLoginBinding
+import com.admaja.storyappsubmission.view.custom.MyCustomEditText
 import com.admaja.storyappsubmission.view.main.MainActivity
 import com.admaja.storyappsubmission.view.signup.SignupActivity
 
@@ -28,5 +30,22 @@ class LoginActivity : AppCompatActivity() {
                 startActivity(this)
             }
         }
+    }
+
+    private fun MyCustomEditText.globalChange() {
+        this.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+                with(binding) {
+                    buttonLogin.isEnabled = emailEditText.isValid == true && passwordEditText.isValid == true
+                }
+            }
+        })
     }
 }

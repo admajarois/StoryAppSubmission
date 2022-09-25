@@ -2,21 +2,18 @@ package com.admaja.storyappsubmission.view.custom
 
 import android.content.Context
 import android.graphics.Canvas
-import android.graphics.drawable.Drawable
+import android.renderscript.ScriptGroup.Input
 import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
 import android.util.AttributeSet
 import android.util.Patterns
-import androidx.core.content.ContextCompat
 import com.admaja.storyappsubmission.R
 import com.google.android.material.textfield.TextInputEditText
 
 class MyCustomEditText : TextInputEditText, TextWatcher {
 
-    private lateinit var backgroundEditText: Drawable
-
-    private var isValid: Boolean? = null
+    var isValid: Boolean? = null
     set(value) {
         field = value ?: (text?.isNotEmpty() == true)
     }
@@ -35,12 +32,6 @@ class MyCustomEditText : TextInputEditText, TextWatcher {
 
     private fun init() {
         addTextChangedListener(this)
-        backgroundEditText = ContextCompat.getDrawable(context, R.drawable.bg_text_field) as Drawable
-    }
-
-    override fun onDraw(canvas: Canvas?) {
-        super.onDraw(canvas)
-        background = backgroundEditText
     }
 
     override fun onTextChanged(
