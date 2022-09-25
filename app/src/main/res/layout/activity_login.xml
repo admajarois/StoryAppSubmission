@@ -60,7 +60,7 @@
         app:layout_constraintEnd_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/email_label_register">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <com.admaja.storyappsubmission.view.custom.MyCustomEditText
             android:id="@+id/email_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -84,7 +84,7 @@
         app:layout_constraintStart_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password_label_register">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <com.admaja.storyappsubmission.view.custom.MyCustomEditText
             android:id="@+id/password_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
