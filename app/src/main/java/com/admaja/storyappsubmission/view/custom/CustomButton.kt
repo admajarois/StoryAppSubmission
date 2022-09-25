@@ -1,9 +1,12 @@
 package com.admaja.storyappsubmission.view.custom
 
 import android.content.Context
+import android.graphics.Canvas
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
+import android.view.Gravity
 import androidx.core.content.ContextCompat
+import com.admaja.storyappsubmission.R
 import com.google.android.material.button.MaterialButton
 
 class CustomButton: MaterialButton {
@@ -23,8 +26,18 @@ class CustomButton: MaterialButton {
         init()
     }
 
+    override fun onDraw(canvas: Canvas?) {
+        super.onDraw(canvas)
+        background = if (isEnabled) enableButtonBackground else disableButtonBackground
+
+        setTextColor(txtColor)
+        textSize = 12f
+        gravity = Gravity.CENTER
+    }
+
     private fun init() {
         txtColor = ContextCompat.getColor(context, android.R.color.background_light)
-//        enableButtonBackground = ContextCompat.getDrawable()
+        enableButtonBackground = ContextCompat.getDrawable(context, R.drawable.bg_button) as Drawable
+        disableButtonBackground = ContextCompat.getDrawable(context, R.drawable.bg_button_disable) as Drawable
     }
 }

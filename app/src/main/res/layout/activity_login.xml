@@ -92,7 +92,7 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
+    <com.admaja.storyappsubmission.view.custom.CustomButton
         android:id="@+id/button_login"
         android:layout_width="0dp"
         android:layout_height="64dp"
