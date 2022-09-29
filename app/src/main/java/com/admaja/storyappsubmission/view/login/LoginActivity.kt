@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import com.admaja.storyappsubmission.R
@@ -36,15 +37,17 @@ class LoginActivity : AppCompatActivity() {
                     if (it != null) {
                         when (it) {
                             is Result.Loading -> {
-                                Toast.makeText(this@LoginActivity, "Masih loading", Toast.LENGTH_SHORT).show()
+                                layoutForLoading.root.visibility = View.VISIBLE
                             }
                             is Result.Success -> {
+                                layoutForLoading.root.visibility = View.GONE
                                 Toast.makeText(this@LoginActivity, "Berhasil login", Toast.LENGTH_SHORT).show()
                                 Intent(this@LoginActivity, MainActivity::class.java).apply {
                                     startActivity(this)
                                 }
                             }
                             is Result.Error -> {
+                                layoutForLoading.root.visibility = View.GONE
                                 Toast.makeText(this@LoginActivity, R.string.error_message, Toast.LENGTH_SHORT).show()
                             }
                         }

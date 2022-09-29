@@ -98,6 +98,7 @@
         android:id="@+id/button_login"
         android:layout_width="0dp"
         android:layout_height="64dp"
+        android:enabled="false"
         android:text="@string/login_label"
         app:layout_constraintTop_toBottomOf="parent"
         tools:layout_editor_absoluteX="289dp" />
@@ -121,6 +122,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/character_login_480" />
+
+    <include
+        android:id="@+id/layout_for_loading"
+        android:visibility="gone"
+        layout="@layout/loading_layout"/>
 
 
 </androidx.constraintlayout.motion.widget.MotionLayout>
