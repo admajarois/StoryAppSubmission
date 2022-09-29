@@ -72,10 +72,11 @@
         app:layout_constraintTop_toBottomOf="@+id/username_label_register">
 
         <com.admaja.storyappsubmission.view.custom.MyCustomEditText
+            android:id="@+id/et_input_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text"
-            android:hint="@string/name_hint" />
+            android:hint="@string/name_hint"
+            android:inputType="text" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
@@ -100,10 +101,11 @@
         app:layout_constraintTop_toBottomOf="@+id/email_label_register">
 
         <com.admaja.storyappsubmission.view.custom.MyCustomEditText
+            android:id="@+id/et_input_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
-            android:hint="@string/email_hint" />
+            android:hint="@string/email_hint"
+            android:inputType="textEmailAddress" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
@@ -128,20 +130,22 @@
         app:layout_constraintTop_toBottomOf="@+id/password_label_register">
 
         <com.admaja.storyappsubmission.view.custom.MyCustomEditText
+            android:id="@+id/et_input_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:hint="@string/password_hint" />
+            android:hint="@string/password_hint"
+            android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
+    <com.admaja.storyappsubmission.view.custom.CustomButton
         android:id="@+id/button_register"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
         android:text="@string/sign_up_label"
+        android:enabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout3" />

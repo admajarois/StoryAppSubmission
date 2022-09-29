@@ -24,4 +24,5 @@
     <string name="name_hint">Enter your name here</string>
     <string name="email_hint">Enter your email here</string>
     <string name="password_hint">Enter your password here</string>
+    <string name="error_message">There is an error</string>
 </resources>

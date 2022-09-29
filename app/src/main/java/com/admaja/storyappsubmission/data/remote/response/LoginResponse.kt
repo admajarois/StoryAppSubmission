@@ -1,6 +1,8 @@
 package com.admaja.storyappsubmission.data.remote.response
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
 data class LoginResponse(
 
@@ -17,11 +19,11 @@ data class LoginResponse(
 data class LoginResult(
 
 	@field:SerializedName("name")
-	val name: String,
+	var name: String? = null,
 
 	@field:SerializedName("userId")
-	val userId: String,
+	var userId: String? = null,
 
 	@field:SerializedName("token")
-	val token: String
+	var token: String? = null
 )
