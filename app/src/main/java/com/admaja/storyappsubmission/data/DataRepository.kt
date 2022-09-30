@@ -8,9 +8,11 @@ import com.admaja.storyappsubmission.data.local.room.Dao
 import com.admaja.storyappsubmission.data.remote.config.ApiService
 import com.admaja.storyappsubmission.data.remote.response.LoginResponse
 import com.admaja.storyappsubmission.data.remote.response.LoginResult
-import com.admaja.storyappsubmission.data.remote.response.RegisterResponse
+import com.admaja.storyappsubmission.data.remote.response.BasicResponse
 import com.admaja.storyappsubmission.data.remote.response.StoryResponse
 import com.admaja.storyappsubmission.utils.AppExecutors
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -24,13 +26,33 @@ class DataRepository private constructor(
 ){
     private val loginResult = MediatorLiveData<Result<LoginResult>>()
 
-    private val registerResult = MediatorLiveData<Result<RegisterResponse>>()
+    private val basicResult = MediatorLiveData<Result<BasicResponse>>()
 
     private val storyResult = MediatorLiveData<Result<List<StoryEntity>>>()
 
-    fun getStory(authorization: String?): LiveData<Result<List<StoryEntity>>> {
+    fun addNewStory(auth: String?, description: RequestBody, photo: MultipartBody.Part, lat: RequestBody?, lon: RequestBody?): LiveData<Result<BasicResponse>> {
+        basicResult.value = Result.Loading
+        val client = apiService.addStories(auth, description, photo, lat, lon)
+        client.enqueue(object: Callback<BasicResponse> {
+            override fun onResponse(call: Call<BasicResponse>, response: Response<BasicResponse>) {
+                if (response.isSuccessful) {
+                    val basicResponse = response.body()
+                    if (basicResponse != null) {
+                        basicResult.value = Result.Success(basicResponse)
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
+                basicResult.value = Result.Error(t.message.toString())
+            }
+        })
+        return basicResult
+    }
+
+    fun getStory(auth: String?): LiveData<Result<List<StoryEntity>>> {
         storyResult.value = Result.Loading
-        val client = apiService.getStories(authorization)
+        val client = apiService.getStories(auth)
         client.enqueue(object: Callback<StoryResponse> {
             override fun onResponse(call: Call<StoryResponse>, response: Response<StoryResponse>) {
                 if (response.isSuccessful) {
@@ -65,27 +87,27 @@ class DataRepository private constructor(
         return storyResult
     }
 
-    fun register(name: String?, email: String?, password: String?): LiveData<Result<RegisterResponse>> {
-        registerResult.value = Result.Loading
+    fun register(name: String?, email: String?, password: String?): LiveData<Result<BasicResponse>> {
+        basicResult.value = Result.Loading
         val client = apiService.register(name, email, password)
-        client.enqueue(object : Callback<RegisterResponse> {
+        client.enqueue(object : Callback<BasicResponse> {
             override fun onResponse(
-                call: Call<RegisterResponse>,
-                response: Response<RegisterResponse>
+                call: Call<BasicResponse>,
+                response: Response<BasicResponse>
             ) {
                 if (response.isSuccessful) {
                     val register = response.body()
                     if (register != null) {
-                        registerResult.value = Result.Success(register)
+                        basicResult.value = Result.Success(register)
                     }
                 }
             }
 
-            override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
-                registerResult.value = Result.Error(t.message.toString())
+            override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
+                basicResult.value = Result.Error(t.message.toString())
             }
         })
-        return registerResult
+        return basicResult
     }
 
     fun login(email: String, password: String): LiveData<Result<LoginResult>> {

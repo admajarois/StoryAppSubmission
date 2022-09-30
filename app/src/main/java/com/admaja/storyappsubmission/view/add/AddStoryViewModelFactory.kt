@@ -1,28 +1,27 @@
-package com.admaja.storyappsubmission.view.signup
+package com.admaja.storyappsubmission.view.add
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.admaja.storyappsubmission.data.DataRepository
 import com.admaja.storyappsubmission.di.Injection
-import com.admaja.storyappsubmission.view.login.LoginViewModelFactory
 
-class SignUpViewModelFactory private constructor(private val dataRepository: DataRepository):
+class AddStoryViewModelFactory private constructor(private val dataRepository: DataRepository):
     ViewModelProvider.NewInstanceFactory(){
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(SignUpViewModel::class.java)) {
-            return SignUpViewModel(dataRepository) as T
+        if (modelClass.isAssignableFrom(AddStoryViewModel::class.java)) {
+            return AddStoryViewModel(dataRepository) as T
         }
         throw IllegalArgumentException("Unknown view model class : ${modelClass.name}")
     }
 
     companion object {
         @Volatile
-        private var instance: SignUpViewModelFactory? = null
-        fun getInstance(context: Context): SignUpViewModelFactory =
+        private var instance: AddStoryViewModelFactory? = null
+        fun getInstance(context: Context): AddStoryViewModelFactory =
             instance?: synchronized(this) {
-                instance?: SignUpViewModelFactory(Injection.provideRepository(context))
+                instance?: AddStoryViewModelFactory(Injection.provideRepository(context))
             }.also { instance = it }
     }
 }
