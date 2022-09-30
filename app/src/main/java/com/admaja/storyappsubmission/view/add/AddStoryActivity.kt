@@ -11,14 +11,25 @@ import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.provider.MediaStore
+import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import com.admaja.storyappsubmission.R
+import com.admaja.storyappsubmission.data.local.preferences.UserPreference
 import com.admaja.storyappsubmission.utils.createCustomTempFile
+import com.admaja.storyappsubmission.utils.reduceFileImage
 import com.admaja.storyappsubmission.utils.uriToFile
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
+import com.admaja.storyappsubmission.data.Result
+import com.admaja.storyappsubmission.view.main.MainActivity
 
 class AddStoryActivity : AppCompatActivity() {
 
@@ -41,6 +52,46 @@ class AddStoryActivity : AppCompatActivity() {
         binding.apply {
             btOpenCamera.setOnClickListener {startCamera()}
             btOpenGalerry.setOnClickListener { startGallery() }
+            btUploadStory.setOnClickListener { uploadStory() }
+        }
+    }
+
+    private fun uploadStory() {
+        if (getFile != null) {
+            val file = reduceFileImage(getFile as File)
+            val auth = "Bearer "+UserPreference(this).getUser().token
+            val description = binding.etInputDescription.text.toString().toRequestBody("text/plain".toMediaType())
+            val requestImageFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
+            val imageMultipart: MultipartBody.Part = MultipartBody.Part.createFormData(
+                "photo",
+                file.name,
+                requestImageFile
+            )
+
+            val viewModelFactory: AddStoryViewModelFactory = AddStoryViewModelFactory.getInstance(this)
+            val viewModel: AddStoryViewModel by viewModels {
+                viewModelFactory
+            }
+            viewModel.addStory(auth, description, imageMultipart,null,null).observe(this) {
+                if (it != null) {
+                    when(it) {
+                        is Result.Loading -> {
+                            binding.layoutForLoading.root.visibility = View.VISIBLE
+                        }
+                        is Result.Success -> {
+                            binding.layoutForLoading.root.visibility = View.GONE
+                            Toast.makeText(this, it.data.message, Toast.LENGTH_SHORT).show()
+                            Intent(this, MainActivity::class.java).apply {
+                                startActivity(this)
+                            }
+                        }
+                        is Result.Error -> {
+                            binding.layoutForLoading.root.visibility = View.GONE
+                            Toast.makeText(this, R.string.error_message, Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+            }
         }
     }
 

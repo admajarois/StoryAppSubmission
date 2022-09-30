@@ -30,7 +30,7 @@ interface ApiService {
     ): Call<StoryResponse>
 
     @Multipart
-    @POST("/stories")
+    @POST("stories")
     fun addStories(
         @Header("Authorization") auth: String?,
         @Part("description") description: RequestBody,

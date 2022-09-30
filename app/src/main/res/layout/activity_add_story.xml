@@ -77,5 +77,10 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_add_story_layout" />
 
+        <include
+            android:id="@+id/layout_for_loading"
+            android:visibility="gone"
+            layout="@layout/loading_layout"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
