@@ -1,8 +1,11 @@
 package com.admaja.storyappsubmission.view.adapter
 
+import android.app.Activity
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.app.ActivityOptionsCompat
+import androidx.core.util.Pair
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -26,8 +29,16 @@ class StoryListAdapter: ListAdapter<StoryEntity, StoryListAdapter.ItemViewHolder
                 tvItemCreateStory.text = resultStory.name
                 tvItemOverview.text = resultStory.description
                 itemView.setOnClickListener {
+                    val optionsCompat: ActivityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                        itemView.context as Activity,
+                        Pair(ivStory, "image"),
+                        Pair(tvItemCreateStory, "name")
+                    )
                     Intent(itemView.context, DetailStoryActivity::class.java).apply {
-
+                        putExtra(EXTRA_STORY, resultStory)
+                        itemView.context.startActivity(
+                            this
+                        )
                     }
                 }
             }
@@ -57,7 +68,7 @@ class StoryListAdapter: ListAdapter<StoryEntity, StoryListAdapter.ItemViewHolder
                 ): Boolean {
                     return oldItem == newItem
                 }
-
             }
+        const val EXTRA_STORY = "extra_story"
     }
 }

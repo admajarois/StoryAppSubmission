@@ -1,23 +1,28 @@
 package com.admaja.storyappsubmission.view.detail
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.admaja.storyappsubmission.R
-import com.admaja.storyappsubmission.databinding.ActivitySignupBinding
-import com.admaja.storyappsubmission.view.login.LoginActivity
+import com.admaja.storyappsubmission.data.local.entity.StoryEntity
+import com.admaja.storyappsubmission.databinding.ActivityDetailStoryBinding
+import com.admaja.storyappsubmission.view.adapter.StoryListAdapter
+import com.bumptech.glide.Glide
 
 class DetailStoryActivity : AppCompatActivity() {
-    private lateinit var binding: ActivitySignupBinding
+    private lateinit var binding: ActivityDetailStoryBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivitySignupBinding.inflate(layoutInflater)
+        binding = ActivityDetailStoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.buttonRegister.setOnClickListener {
-            Intent(this@DetailStoryActivity, LoginActivity::class.java).apply {
-                startActivity(this)
-            }
+        val extras = intent.getParcelableExtra<StoryEntity>(StoryListAdapter.EXTRA_STORY)
+        binding.apply {
+            tvStoryCreate.text = extras?.name
+            tvStoryDescription.text = extras?.description
+            Glide.with(this@DetailStoryActivity)
+                .load(extras?.photoUrl)
+                .placeholder(R.drawable.image_thumbnail)
+                .into(ivDetailStory)
         }
     }
 }
