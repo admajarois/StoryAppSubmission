@@ -5,9 +5,15 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.Toast
+import androidx.activity.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.admaja.storyappsubmission.R
+import com.admaja.storyappsubmission.data.Result
 import com.admaja.storyappsubmission.data.local.preferences.UserPreference
 import com.admaja.storyappsubmission.databinding.ActivityMainBinding
+import com.admaja.storyappsubmission.view.adapter.StoryListAdapter
 import com.admaja.storyappsubmission.view.login.LoginActivity
 
 class MainActivity : AppCompatActivity() {
@@ -19,6 +25,38 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val factory: MainViewModelFactory = MainViewModelFactory.getInstance(this)
+        val mainViewModel: MainViewModel by viewModels {
+            factory
+        }
+
+        val storyListAdapter = StoryListAdapter()
+        val auth = "Bearer "+UserPreference(this).getUser().token
+        mainViewModel.setAuth(auth)
+        mainViewModel.getStories().observe(this) {
+            if (it != null) {
+                when(it) {
+                    is Result.Loading -> {
+                        binding.layoutForLoading.root.visibility = View.VISIBLE
+                    }
+                    is Result.Success -> {
+                        binding.layoutForLoading.root.visibility = View.GONE
+                        val storyData = it.data
+                        storyListAdapter.submitList(storyData)
+                    }
+                    is Result.Error -> {
+                        binding.layoutForLoading.root.visibility = View.GONE
+                        Toast.makeText(this, R.string.error_message, Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        }
+        binding.apply {
+            rvListStory.layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.VERTICAL, false)
+            rvListStory.setHasFixedSize(true)
+            rvListStory.adapter = storyListAdapter
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

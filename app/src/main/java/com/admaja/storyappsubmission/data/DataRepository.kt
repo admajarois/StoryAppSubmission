@@ -28,9 +28,9 @@ class DataRepository private constructor(
 
     private val storyResult = MediatorLiveData<Result<List<StoryEntity>>>()
 
-    fun getStory(page: String?, size: String?, location: String?): LiveData<Result<List<StoryEntity>>> {
+    fun getStory(authorization: String?): LiveData<Result<List<StoryEntity>>> {
         storyResult.value = Result.Loading
-        val client = apiService.getStories(page, size, location)
+        val client = apiService.getStories(authorization)
         client.enqueue(object: Callback<StoryResponse> {
             override fun onResponse(call: Call<StoryResponse>, response: Response<StoryResponse>) {
                 if (response.isSuccessful) {

@@ -5,15 +5,11 @@ import com.admaja.storyappsubmission.data.DataRepository
 
 class MainViewModel(private val dataRepository: DataRepository): ViewModel() {
 
-    private var location:String? = null
-    private var page: String? = null
-    private var size: String? = null
+    private var auth:String? = null
 
-    fun setStories(location: String?, page: String?, size: String?) {
-        this.location = location
-        this.page = page
-        this.size = size
+    fun setAuth(auth:String?) {
+        this.auth = auth
     }
 
-    fun getStories() = dataRepository.getStory(location, page, size)
+    fun getStories() = dataRepository.getStory(auth)
 }

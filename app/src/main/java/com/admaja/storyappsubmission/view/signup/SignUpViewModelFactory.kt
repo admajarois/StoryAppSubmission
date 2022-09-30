@@ -14,7 +14,7 @@ class SignUpViewModelFactory private constructor(private val dataRepository: Dat
         if (modelClass.isAssignableFrom(SignUpViewModel::class.java)) {
             return SignUpViewModel(dataRepository) as T
         }
-        throw IllegalArgumentException("Unknow View Model Class : ${modelClass.name}")
+        throw IllegalArgumentException("Unknown view model class : ${modelClass.name}")
     }
 
     companion object {
