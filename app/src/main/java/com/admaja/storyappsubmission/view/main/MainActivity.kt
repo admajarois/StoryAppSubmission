@@ -14,6 +14,7 @@ import com.admaja.storyappsubmission.data.Result
 import com.admaja.storyappsubmission.data.local.preferences.UserPreference
 import com.admaja.storyappsubmission.databinding.ActivityMainBinding
 import com.admaja.storyappsubmission.view.adapter.StoryListAdapter
+import com.admaja.storyappsubmission.view.add.AddStoryActivity
 import com.admaja.storyappsubmission.view.login.LoginActivity
 
 class MainActivity : AppCompatActivity() {
@@ -56,8 +57,14 @@ class MainActivity : AppCompatActivity() {
             rvListStory.layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.VERTICAL, false)
             rvListStory.setHasFixedSize(true)
             rvListStory.adapter = storyListAdapter
+            fabAddStory.setOnClickListener {
+                Intent(this@MainActivity, AddStoryActivity::class.java).apply {
+                    startActivity(this)
+                }
+            }
         }
     }
+
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater = menuInflater
