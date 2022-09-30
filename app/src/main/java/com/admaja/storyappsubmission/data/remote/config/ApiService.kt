@@ -2,6 +2,7 @@ package com.admaja.storyappsubmission.data.remote.config
 
 import com.admaja.storyappsubmission.data.remote.response.LoginResponse
 import com.admaja.storyappsubmission.data.remote.response.RegisterResponse
+import com.admaja.storyappsubmission.data.remote.response.StoryResponse
 import retrofit2.Call
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
@@ -24,11 +25,11 @@ interface ApiService {
         @Field("email") email: String?,
         @Field("password") password: String?
     ): Call<RegisterResponse>
-//
-//    @GET("/stories")
-//    suspend fun getStories(
-//        @Query("page") page: String?,
-//        @Query("size") size: String?,
-//        @Query()
-//    )
+
+    @GET("stories")
+    fun getStories(
+        @Query("page") page: String?,
+        @Query("size") size: String?,
+        @Query("location") location: String?
+    ): Call<StoryResponse>
 }

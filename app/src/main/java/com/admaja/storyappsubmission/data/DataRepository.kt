@@ -1,14 +1,15 @@
 package com.admaja.storyappsubmission.data
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
+import com.admaja.storyappsubmission.data.local.entity.StoryEntity
 import com.admaja.storyappsubmission.data.local.preferences.UserPreference
 import com.admaja.storyappsubmission.data.local.room.Dao
 import com.admaja.storyappsubmission.data.remote.config.ApiService
 import com.admaja.storyappsubmission.data.remote.response.LoginResponse
 import com.admaja.storyappsubmission.data.remote.response.LoginResult
 import com.admaja.storyappsubmission.data.remote.response.RegisterResponse
+import com.admaja.storyappsubmission.data.remote.response.StoryResponse
 import com.admaja.storyappsubmission.utils.AppExecutors
 import retrofit2.Call
 import retrofit2.Callback
@@ -24,6 +25,45 @@ class DataRepository private constructor(
     private val loginResult = MediatorLiveData<Result<LoginResult>>()
 
     private val registerResult = MediatorLiveData<Result<RegisterResponse>>()
+
+    private val storyResult = MediatorLiveData<Result<List<StoryEntity>>>()
+
+    fun getStory(page: String?, size: String?, location: String?): LiveData<Result<List<StoryEntity>>> {
+        storyResult.value = Result.Loading
+        val client = apiService.getStories(page, size, location)
+        client.enqueue(object: Callback<StoryResponse> {
+            override fun onResponse(call: Call<StoryResponse>, response: Response<StoryResponse>) {
+                if (response.isSuccessful) {
+                    val stories = response.body()?.listStory
+                    val newStory = ArrayList<StoryEntity>()
+                    appExecutors.diskIO.execute {
+                        stories?.forEach {story ->
+                            val storyEntity = StoryEntity(
+                                story.photoUrl,
+                                story.createdAt,
+                                story.name,
+                                story.description,
+                                story.lon,
+                                story.id,
+                                story.lat
+                            )
+                            newStory.add(storyEntity)
+                        }
+                        dao.deleteAll()
+                        dao.insertStory(newStory)
+                    }
+                }
+            }
+            override fun onFailure(call: Call<StoryResponse>, t: Throwable) {
+                storyResult.value = Result.Error(t.message.toString())
+            }
+        })
+        val localData = dao.getStories()
+        storyResult.addSource(localData) { newData: List<StoryEntity> ->
+            storyResult.value = Result.Success(newData)
+        }
+        return storyResult
+    }
 
     fun register(name: String?, email: String?, password: String?): LiveData<Result<RegisterResponse>> {
         registerResult.value = Result.Loading

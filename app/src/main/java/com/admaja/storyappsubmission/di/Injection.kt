@@ -9,7 +9,7 @@ import com.admaja.storyappsubmission.utils.AppExecutors
 
 object Injection {
     fun provideRepository(context: Context): DataRepository {
-        val apiService = ApiConfig.getApiSerivice()
+        val apiService = ApiConfig.getApiService()
         val database = StoryDatabase.getInstance(context)
         val dao = database.dao()
         val userPreference = UserPreference(context)

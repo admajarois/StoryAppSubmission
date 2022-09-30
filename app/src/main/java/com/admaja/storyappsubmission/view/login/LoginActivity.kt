@@ -8,8 +8,10 @@ import android.text.TextWatcher
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.constraintlayout.motion.widget.MotionLayout
 import com.admaja.storyappsubmission.R
 import com.admaja.storyappsubmission.data.Result
+import com.admaja.storyappsubmission.data.local.preferences.UserPreference
 import com.admaja.storyappsubmission.databinding.ActivityLoginBinding
 import com.admaja.storyappsubmission.view.custom.MyCustomEditText
 import com.admaja.storyappsubmission.view.main.MainActivity
@@ -42,9 +44,7 @@ class LoginActivity : AppCompatActivity() {
                             is Result.Success -> {
                                 layoutForLoading.root.visibility = View.GONE
                                 Toast.makeText(this@LoginActivity, "Berhasil login", Toast.LENGTH_SHORT).show()
-                                Intent(this@LoginActivity, MainActivity::class.java).apply {
-                                    startActivity(this)
-                                }
+                                goHome()
                             }
                             is Result.Error -> {
                                 layoutForLoading.root.visibility = View.GONE
@@ -60,6 +60,7 @@ class LoginActivity : AppCompatActivity() {
                 startActivity(this)
             }
         }
+        animationSet()
     }
 
     private fun MyCustomEditText.globalChange() {
@@ -77,5 +78,50 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
         })
+    }
+
+    private fun goHome() {
+        Intent(this@LoginActivity, MainActivity::class.java).apply {
+            startActivity(this)
+        }
+    }
+
+    private fun animationSet() {
+        binding.root.apply {
+            setTransitionListener(object : MotionLayout.TransitionListener {
+                override fun onTransitionStarted(
+                    motionLayout: MotionLayout?,
+                    startId: Int,
+                    endId: Int
+                ) {
+                }
+
+                override fun onTransitionChange(
+                    motionLayout: MotionLayout?,
+                    startId: Int,
+                    endId: Int,
+                    progress: Float
+                ) {
+                }
+
+                override fun onTransitionCompleted(motionLayout: MotionLayout?, currentId: Int) {
+                    if (currentId == R.id.end) {
+                        if(UserPreference(this@LoginActivity).getUser().token != null) {
+                            goHome()
+                        }
+                    }
+                }
+
+                override fun onTransitionTrigger(
+                    motionLayout: MotionLayout?,
+                    triggerId: Int,
+                    positive: Boolean,
+                    progress: Float
+                ) {
+                    TODO("Not yet implemented")
+                }
+
+            })
+        }
     }
 }

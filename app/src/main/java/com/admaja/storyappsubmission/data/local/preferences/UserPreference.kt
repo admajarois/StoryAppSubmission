@@ -12,8 +12,9 @@ class UserPreference(context: Context) {
 
     private val preference = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
 
+    private val editor = preference.edit()
+
     fun setUser(value: LoginResult?) {
-        val editor = preference.edit()
         editor.putString(USER_ID, value?.userId)
         editor.putString(USER_NAME, value?.name)
         editor.putString(TOKEN, value?.token)
@@ -22,9 +23,11 @@ class UserPreference(context: Context) {
 
     fun getUser(): LoginResult {
         val model = LoginResult()
-        model.userId = preference.getString(USER_ID, "")
-        model.name = preference.getString(USER_NAME, "")
-        model.token = preference.getString(TOKEN, "")
+        model.userId = preference.getString(USER_ID, null)
+        model.name = preference.getString(USER_NAME, null)
+        model.token = preference.getString(TOKEN, null)
         return model
     }
+
+    fun clearUserPreference() = editor.clear().apply()
 }
