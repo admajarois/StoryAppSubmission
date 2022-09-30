@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Bacapad</string>
+    <string name="login_label">Masuk</string>
+    <string name="sign_up_label">Daftar</string>
+    <string name="username_label">Nama</string>
+    <string name="email_label">Email</string>
+    <string name="password_label">Kata Sandi</string>
+    <string name="greetings_login">Halo</string>
+    <string name="missed_login">Selamat datang kembali, Anda telah dirindukan</string>
+    <string name="thumbnail_story">Ini sebuah gambar cerita</string>
+    <string name="bt_camera">Kamera</string>
+    <string name="bt_gallery">Galeri</string>
+    <string name="bt_upload">Unggah</string>
+    <string name="image_login">Gambar seseorang dengan komputer</string>
+    <string name="to_register">Belum punya akun? klik untuk mendaftar</string>
+    <string name="greeting_silahkan">Tolong,</string>
+    <string name="greeting_register">Buat sebuah akun terlebih dahulu!</string>
+    <string name="floating_girl">Gambar orang mengambang</string>
+    <string name="password_alert">Kata sandi tidak boleh kurang dari 6 karakter</string>
+    <string name="invalid_email_alert">Format email salah</string>
+    <string name="must_filled">Tidak boleh kosong</string>
+    <string name="name_hint">Masukkan nama anda disini</string>
+    <string name="email_hint">Masukkan email anda disini</string>
+    <string name="password_hint">Masukkan kata sandi anda disini</string>
+    <string name="error_message">Terjadi kesalahan</string>
+    <string name="logout">Keluar</string>
+    <string name="button_add">Tombol untuk menambah cerita</string>
+    <string name="choose_picture">Pilih sebuah gambar</string>
+    <string name="enter_story">Apa yang anda pikirkan?</string>
+    <string name="title_story" translatable="false">Lorem ipsum dolor sit amet</string>
+    <string name="story_sinopsis" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut sapien id urna tincidunt pretium. In luctus odio lectus, sit amet convallis dui pretium vitae. Nunc interdum a nunc et finibus. Sed accumsan est vitae venenatis euismod. Nulla sed nunc augue. In iaculis ac felis ac commodo. Vivamus molestie sollicitudin orci nec convallis. Morbi consequat tincidunt tempus. Vestibulum eget eleifend justo, et semper diam. Mauris scelerisque nisi non purus efficitur, vel scelerisque tellus mattis. Donec luctus, leo a blandit accumsan, nulla sem tempor nulla, id sollicitudin tortor diam nec velit. Curabitur sed leo at est varius ultrices bibendum ut tortor. Maecenas cursus tincidunt nulla, nec laoreet neque ornare at. Nam blandit elementum ligula at bibendum.</string>
+</resources>

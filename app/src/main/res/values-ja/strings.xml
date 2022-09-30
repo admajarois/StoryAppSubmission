@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Bacapad</string>
+    <string name="login_label">入る</string>
+    <string name="sign_up_label">リスト</string>
+    <string name="username_label">名前</string>
+    <string name="email_label">Eメール</string>
+    <string name="password_label">パスワード</string>
+    <string name="greetings_login">こんにちは</string>
+    <string name="missed_login">おかえりなさい、お邪魔しました</string>
+    <string name="title_story" translatable="false">Lorem ipsum dolor sit amet</string>
+    <string name="story_sinopsis" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut sapien id urna tincidunt pretium. In luctus odio lectus, sit amet convallis dui pretium vitae. Nunc interdum a nunc et finibus. Sed accumsan est vitae venenatis euismod. Nulla sed nunc augue. In iaculis ac felis ac commodo. Vivamus molestie sollicitudin orci nec convallis. Morbi consequat tincidunt tempus. Vestibulum eget eleifend justo, et semper diam. Mauris scelerisque nisi non purus efficitur, vel scelerisque tellus mattis. Donec luctus, leo a blandit accumsan, nulla sem tempor nulla, id sollicitudin tortor diam nec velit. Curabitur sed leo at est varius ultrices bibendum ut tortor. Maecenas cursus tincidunt nulla, nec laoreet neque ornare at. Nam blandit elementum ligula at bibendum.</string>
+    <string name="thumbnail_story">これは絵物語</string>
+    <string name="bt_camera">カメラ</string>
+    <string name="bt_gallery">ギャラリー</string>
+    <string name="bt_upload">アップロード</string>
+    <string name="image_login">パソコンを持っている人の画像</string>
+    <string name="to_register">まだアカウントを持っていませんか? クリックして登録</string>
+    <string name="greeting_silahkan">お願いします,</string>
+    <string name="greeting_register">まずはアカウントを作成！</string>
+    <string name="floating_girl">浮いている人のイメージ</string>
+    <string name="password_alert">パスワードは 6 文字未満にすることはできません</string>
+    <string name="invalid_email_alert">メール形式が正しくない</string>
+    <string name="must_filled">空にすることはできません</string>
+    <string name="name_hint">ここにあなたの名前を入力してください</string>
+    <string name="email_hint">あなたのメールアドレスをここに入力してください</string>
+    <string name="password_hint">ここにパスワードを入力してください</string>
+    <string name="error_message">エラーがあります</string>
+    <string name="logout">ログアウト</string>
+    <string name="button_add">ストーリーを追加するボタン</string>
+    <string name="choose_picture">画像を選択</string>
+    <string name="enter_story">どう思いますか？</string>
+</resources>
