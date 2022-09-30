@@ -28,7 +28,6 @@
         android:layout_marginTop="16dp"
         android:alpha="0"
         android:text="@string/greetings_login"
-        android:textColor="@color/black"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/view"
