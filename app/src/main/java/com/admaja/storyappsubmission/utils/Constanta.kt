@@ -13,3 +13,5 @@ const val USER_ID = "id"
 const val USER_NAME = "name"
 const val TOKEN = "token"
 
+const val FILENAME_FORMAT = "dd-MM-yyyy"
+
