@@ -35,4 +35,5 @@
     <string name="add_widget">Add widget</string>
     <string name="app_widget_description">This is bacapad\'s widget</string>
     <string name="empty_text" translatable="false">NO DATA</string>
+    <string name="image_empty">Please, insert image first!</string>
 </resources>

@@ -34,4 +34,5 @@
     <string name="login_failed">メールアドレスまたはパスワードが間違っています</string>
     <string name="add_widget">ウィジェットを追加</string>
     <string name="app_widget_description">これはbacapadのウィジェットです</string>
+    <string name="image_empty">最初に画像を挿入してください。</string>
 </resources>

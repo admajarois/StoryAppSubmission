@@ -40,17 +40,17 @@ class SignupActivity : AppCompatActivity() {
                     if (it != null) {
                         when(it) {
                             is Result.Loading -> {
-                                layoutForLoading.root.visibility = View.VISIBLE
+                                layoutLoadingSignup.root.visibility = View.VISIBLE
                             }
                             is Result.Success -> {
-                                layoutForLoading.root.visibility = View.GONE
+                                layoutLoadingSignup.root.visibility = View.GONE
                                 Toast.makeText(this@SignupActivity, it.data.message, Toast.LENGTH_SHORT).show()
                                 Intent(this@SignupActivity, LoginActivity::class.java).apply {
                                     startActivity(this)
                                 }
                             }
                             is Result.Error -> {
-                                layoutForLoading.root.visibility = View.GONE
+                                layoutLoadingSignup.root.visibility = View.GONE
                                 Toast.makeText(this@SignupActivity, R.string.error_message, Toast.LENGTH_SHORT).show()
                             }
                         }

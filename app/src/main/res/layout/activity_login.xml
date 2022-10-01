@@ -123,7 +123,7 @@
         app:srcCompat="@drawable/character_login_480" />
 
     <include
-        android:id="@+id/layout_for_loading"
+        android:id="@+id/layout_loading_login"
         android:visibility="gone"
         layout="@layout/loading_layout"/>
 

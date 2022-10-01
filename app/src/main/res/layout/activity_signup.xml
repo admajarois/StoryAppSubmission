@@ -161,7 +161,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout3" />
 
     <include
-        android:id="@+id/layout_for_loading"
+        android:id="@+id/layout_loading_signup"
         android:visibility="gone"
         layout="@layout/loading_layout"/>
 

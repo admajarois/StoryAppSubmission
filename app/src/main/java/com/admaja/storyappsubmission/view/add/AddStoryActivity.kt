@@ -76,22 +76,24 @@ class AddStoryActivity : AppCompatActivity() {
                 if (it != null) {
                     when(it) {
                         is Result.Loading -> {
-                            binding.layoutForLoading.root.visibility = View.VISIBLE
+                            binding.layoutLoadingAdd.root.visibility = View.VISIBLE
                         }
                         is Result.Success -> {
-                            binding.layoutForLoading.root.visibility = View.GONE
+                            binding.layoutLoadingAdd.root.visibility = View.GONE
                             Toast.makeText(this, it.data.message, Toast.LENGTH_SHORT).show()
                             Intent(this, MainActivity::class.java).apply {
                                 startActivity(this)
                             }
                         }
                         is Result.Error -> {
-                            binding.layoutForLoading.root.visibility = View.GONE
+                            binding.layoutLoadingAdd.root.visibility = View.GONE
                             Toast.makeText(this, R.string.error_message, Toast.LENGTH_SHORT).show()
                         }
                     }
                 }
             }
+        } else {
+            Toast.makeText(this, R.string.image_empty, Toast.LENGTH_SHORT).show()
         }
     }
 

@@ -39,10 +39,10 @@ class LoginActivity : AppCompatActivity() {
                     if (it != null) {
                         when (it) {
                             is Result.Loading -> {
-                                layoutForLoading.root.visibility = View.VISIBLE
+                                layoutLoadingLogin.root.visibility = View.VISIBLE
                             }
                             is Result.Success -> {
-                                layoutForLoading.root.visibility = View.GONE
+                                layoutLoadingLogin.root.visibility = View.GONE
                                 if (it.data.error) {
                                     Toast.makeText(this@LoginActivity, R.string.login_failed, Toast.LENGTH_SHORT).show()
                                 }
@@ -50,7 +50,7 @@ class LoginActivity : AppCompatActivity() {
                                 goHome()
                             }
                             is Result.Error -> {
-                                layoutForLoading.root.visibility = View.GONE
+                                layoutLoadingLogin.root.visibility = View.GONE
                                 Toast.makeText(this@LoginActivity, R.string.error_message, Toast.LENGTH_SHORT).show()
                             }
                         }
