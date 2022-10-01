@@ -32,4 +32,6 @@
     <string name="enter_story">どう思いますか？</string>
     <string name="login_success">正常にログインしました</string>
     <string name="login_failed">メールアドレスまたはパスワードが間違っています</string>
+    <string name="add_widget">ウィジェットを追加</string>
+    <string name="app_widget_description">これはbacapadのウィジェットです</string>
 </resources>
