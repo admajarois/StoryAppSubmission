@@ -1,7 +1,10 @@
 package com.admaja.storyappsubmission.data
 
+import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
+import com.admaja.storyappsubmission.R
 import com.admaja.storyappsubmission.data.local.entity.StoryEntity
 import com.admaja.storyappsubmission.data.local.preferences.UserPreference
 import com.admaja.storyappsubmission.data.local.room.Dao
@@ -24,7 +27,7 @@ class DataRepository private constructor(
     private val userPreference: UserPreference,
     private val appExecutors: AppExecutors
 ){
-    private val loginResult = MediatorLiveData<Result<LoginResult>>()
+    private val loginResult = MediatorLiveData<Result<LoginResponse>>()
 
     private val basicResult = MediatorLiveData<Result<BasicResponse>>()
 
@@ -110,14 +113,17 @@ class DataRepository private constructor(
         return basicResult
     }
 
-    fun login(email: String, password: String): LiveData<Result<LoginResult>> {
+    fun login(email: String, password: String): LiveData<Result<LoginResponse>> {
         loginResult.value = Result.Loading
         val client = apiService.login(email, password)
         client.enqueue(object : Callback<LoginResponse> {
             override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
                 if (response.isSuccessful) {
-                    val user = response.body()?.loginResult
-                    userPreference.setUser(user)
+                    val user = response.body()
+                    if (user != null) {
+                        userPreference.setUser(user.loginResult)
+                        loginResult.value = Result.Success(user)
+                    }
                 }
             }
 
@@ -125,8 +131,6 @@ class DataRepository private constructor(
                 loginResult.value = Result.Error(t.message.toString())
             }
         })
-        val dataUser = userPreference.getUser()
-        loginResult.value = Result.Success(dataUser)
         return loginResult
     }
 

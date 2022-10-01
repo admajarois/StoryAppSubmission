@@ -43,7 +43,10 @@ class LoginActivity : AppCompatActivity() {
                             }
                             is Result.Success -> {
                                 layoutForLoading.root.visibility = View.GONE
-                                Toast.makeText(this@LoginActivity, "Berhasil login", Toast.LENGTH_SHORT).show()
+                                if (it.data.error) {
+                                    Toast.makeText(this@LoginActivity, R.string.login_failed, Toast.LENGTH_SHORT).show()
+                                }
+                                Toast.makeText(this@LoginActivity, R.string.login_success, Toast.LENGTH_SHORT).show()
                                 goHome()
                             }
                             is Result.Error -> {

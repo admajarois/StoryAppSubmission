@@ -29,4 +29,6 @@
     <string name="button_add">Button for add the new story</string>
     <string name="choose_picture">Choose a Picture</string>
     <string name="enter_story">What\'s your mind?</string>
+    <string name="login_success">Login Successfully</string>
+    <string name="login_failed">Wrong email or password</string>
 </resources>
