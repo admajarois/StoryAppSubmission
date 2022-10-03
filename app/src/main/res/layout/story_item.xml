@@ -16,9 +16,10 @@
 
                 <ImageView
                     android:id="@+id/iv_story"
-                    android:layout_width="match_parent"
-                    android:layout_height="125dp"
-                    android:scaleType="centerCrop"
+                    android:layout_width="wrap_content"
+                    android:layout_height="240dp"
+                    android:scaleType="fitCenter"
+                    android:adjustViewBounds="true"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -27,14 +28,15 @@
 
                 <TextView
                     android:id="@+id/tv_item_create_story"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:text="@string/title_story"
                     android:alpha=".8"
                     android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/iv_story" />
+                    app:layout_constraintTop_toBottomOf="@id/iv_story"
+                    tools:text="@string/title_story" />
 
                 <TextView
                     android:id="@+id/tv_item_overview"
@@ -42,9 +44,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
                     android:alpha=".8"
                     android:lines="2"
-                    android:text="@string/story_sinopsis"
+                    tools:text="@string/story_sinopsis"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_item_create_story" />
 

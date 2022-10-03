@@ -1,16 +1,13 @@
 package com.admaja.storyappsubmission.data
 
-import android.util.Log
-import android.widget.Toast
+
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
-import com.admaja.storyappsubmission.R
 import com.admaja.storyappsubmission.data.local.entity.StoryEntity
 import com.admaja.storyappsubmission.data.local.preferences.UserPreference
 import com.admaja.storyappsubmission.data.local.room.Dao
 import com.admaja.storyappsubmission.data.remote.config.ApiService
 import com.admaja.storyappsubmission.data.remote.response.LoginResponse
-import com.admaja.storyappsubmission.data.remote.response.LoginResult
 import com.admaja.storyappsubmission.data.remote.response.BasicResponse
 import com.admaja.storyappsubmission.data.remote.response.StoryResponse
 import com.admaja.storyappsubmission.utils.AppExecutors

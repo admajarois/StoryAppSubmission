@@ -86,6 +86,7 @@ class LoginActivity : AppCompatActivity() {
     private fun goHome() {
         Intent(this@LoginActivity, MainActivity::class.java).apply {
             startActivity(this)
+            finish()
         }
     }
 

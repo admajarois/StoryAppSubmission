@@ -35,4 +35,5 @@
     <string name="add_widget">ウィジェットを追加</string>
     <string name="app_widget_description">これはbacapadのウィジェットです</string>
     <string name="image_empty">最初に画像を挿入してください。</string>
+    <string name="permissions">許可を得ていない</string>
 </resources>

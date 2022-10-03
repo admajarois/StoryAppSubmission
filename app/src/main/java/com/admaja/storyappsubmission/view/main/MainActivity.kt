@@ -73,14 +73,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId) {
+        return when(item.itemId) {
             R.id.logout -> {
                 Intent(this@MainActivity, LoginActivity::class.java).apply {
                     startActivity(this)
                     finishAffinity()
                     UserPreference(this@MainActivity).clearUserPreference()
                 }
-                return true
+                true
             }
             else -> return false
         }

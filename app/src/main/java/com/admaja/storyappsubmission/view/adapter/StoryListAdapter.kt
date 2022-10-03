@@ -29,11 +29,6 @@ class StoryListAdapter: ListAdapter<StoryEntity, StoryListAdapter.ItemViewHolder
                 tvItemCreateStory.text = resultStory.name
                 tvItemOverview.text = resultStory.description
                 itemView.setOnClickListener {
-                    val optionsCompat: ActivityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                        itemView.context as Activity,
-                        Pair(ivStory, "image"),
-                        Pair(tvItemCreateStory, "name")
-                    )
                     Intent(itemView.context, DetailStoryActivity::class.java).apply {
                         putExtra(EXTRA_STORY, resultStory)
                         itemView.context.startActivity(

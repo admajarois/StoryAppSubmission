@@ -155,7 +155,7 @@ class AddStoryActivity : AppCompatActivity() {
         if (requestCode == REQUEST_CODE_PERMISSIONS) {
             Toast.makeText(
                 this,
-                "Not Getting Permission",
+                R.string.permissions,
                 Toast.LENGTH_SHORT
             ).show()
             finish()

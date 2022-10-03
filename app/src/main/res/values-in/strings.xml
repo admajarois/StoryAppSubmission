@@ -35,4 +35,5 @@
     <string name="add_widget">Tambah widget</string>
     <string name="app_widget_description">Ini adalah widget bacapad</string>
     <string name="image_empty">Tolong, masukkan gambar terlebih dahulu!</string>
+    <string name="permissions">Tidak mendapatkan izin</string>
 </resources>
