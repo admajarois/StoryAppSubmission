@@ -37,4 +37,6 @@
     <string name="empty_text" translatable="false">NO DATA</string>
     <string name="image_empty">Please, insert image first!</string>
     <string name="permissions">Not getting permission</string>
+    <string name="title_activity_maps">MapsActivity</string>
+    <string name="maps">Maps</string>
 </resources>

@@ -1,0 +1,27 @@
+package com.admaja.storyappsubmission.view.maps
+
+import android.content.Context
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import com.admaja.storyappsubmission.data.DataRepository
+import com.admaja.storyappsubmission.di.Injection
+
+class MapsViewModelFactory private constructor(private val dataRepository: DataRepository):
+    ViewModelProvider.NewInstanceFactory(){
+    @Suppress("UNCHECKED_CAST")
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(MapsViewModel::class.java)) {
+            return MapsViewModel(dataRepository) as T
+        }
+        throw IllegalArgumentException("Unknown view model class : ${modelClass.name}")
+    }
+
+    companion object {
+        @Volatile
+        private var instance: MapsViewModelFactory? = null
+        fun getInstance(context: Context): MapsViewModelFactory =
+            instance?: synchronized(this) {
+                instance?: MapsViewModelFactory(Injection.provideRepository(context))
+            }.also { instance = it }
+    }
+}

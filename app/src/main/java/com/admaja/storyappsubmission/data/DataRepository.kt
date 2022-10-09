@@ -50,9 +50,9 @@ class DataRepository private constructor(
         return basicResult
     }
 
-    fun getStory(auth: String?): LiveData<Result<List<StoryEntity>>> {
+    fun getStory(auth: String?, location: String?): LiveData<Result<List<StoryEntity>>> {
         storyResult.value = Result.Loading
-        val client = apiService.getStories(auth)
+        val client = apiService.getStories(auth, location)
         client.enqueue(object: Callback<StoryResponse> {
             override fun onResponse(call: Call<StoryResponse>, response: Response<StoryResponse>) {
                 if (response.isSuccessful) {

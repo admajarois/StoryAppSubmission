@@ -26,7 +26,8 @@ interface ApiService {
 
     @GET("stories")
     fun getStories(
-        @Header("Authorization") auth : String?
+        @Header("Authorization") auth : String?,
+        @Query("location") location : String?
     ): Call<StoryResponse>
 
     @Multipart

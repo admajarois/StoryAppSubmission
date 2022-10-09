@@ -16,6 +16,7 @@ import com.admaja.storyappsubmission.databinding.ActivityMainBinding
 import com.admaja.storyappsubmission.view.adapter.StoryListAdapter
 import com.admaja.storyappsubmission.view.add.AddStoryActivity
 import com.admaja.storyappsubmission.view.login.LoginActivity
+import com.admaja.storyappsubmission.view.maps.MapsActivity
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -79,6 +80,12 @@ class MainActivity : AppCompatActivity() {
                     startActivity(this)
                     finishAffinity()
                     UserPreference(this@MainActivity).clearUserPreference()
+                }
+                true
+            }
+            R.id.map -> {
+                Intent(this@MainActivity, MapsActivity::class.java).apply {
+                    startActivity(this)
                 }
                 true
             }

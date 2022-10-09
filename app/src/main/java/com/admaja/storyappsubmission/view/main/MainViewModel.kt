@@ -11,5 +11,5 @@ class MainViewModel(private val dataRepository: DataRepository): ViewModel() {
         this.auth = auth
     }
 
-    fun getStories() = dataRepository.getStory(auth)
+    fun getStories() = dataRepository.getStory(auth, null)
 }
