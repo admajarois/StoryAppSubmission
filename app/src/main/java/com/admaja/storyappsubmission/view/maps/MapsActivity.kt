@@ -52,72 +52,34 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
      */
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
-
-//         Add a marker in Sydney and move the camera
         mMap.uiSettings.isZoomControlsEnabled = true
         mMap.uiSettings.isIndoorLevelPickerEnabled = true
         mMap.uiSettings.isCompassEnabled = true
         mMap.uiSettings.isMapToolbarEnabled = true
 
-        getMyLocation()
         addStoryMaker()
     }
 
-    private val requestPermissionLauncher = registerForActivityResult(
-        ActivityResultContracts.RequestPermission()
-    ) { isGranted: Boolean ->
-        if (isGranted) {
-            getMyLocation()
-        }
-    }
 
     private fun addStoryMaker() {
-        val factory: MainViewModelFactory = MainViewModelFactory.getInstance(this)
-        val mapsViewModel: MainViewModel by viewModels {
-            factory
-        }
-//        mapsViewModel.getStories().observe(this) {
-//            if (it != null) {
-//                when(it) {
-//                    is Result.Loading -> {
-//
-//                    }
-//                    is Result.Success -> {
-//                        it.data.forEach { story ->
-//                            val latLng = LatLng(story.lat, story.lon)
-//                            mMap.addMarker(MarkerOptions().position(latLng).title(story.name))
-//                            boundBuilder.include(latLng)
-//                        }
-//                        val bounds: LatLngBounds = boundBuilder.build()
-//                        mMap.animateCamera(
-//                            CameraUpdateFactory.newLatLngBounds(
-//                                bounds,
-//                                resources.displayMetrics.widthPixels,
-//                                resources.displayMetrics.heightPixels,
-//                                300
-//                            )
-//                        )
-//                    }
-//                    is Result.Error -> {
-//
-//                    }
-//                }
-//            }
-//        }
-    }
-
-    private fun getMyLocation() {
-        if (ContextCompat.checkSelfPermission(
-                this.applicationContext,
-                Manifest.permission.ACCESS_FINE_LOCATION
-        ) == PackageManager.PERMISSION_GRANTED) {
-            mMap.isMyLocationEnabled = true
-        } else {
-            requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+        val mapsViewModelFactory: MapsViewModelFactory = MapsViewModelFactory.getInstance(this)
+        val mapsViewModel: MapViewModels by viewModels { mapsViewModelFactory }
+        mapsViewModel.getStoryLocation().observe(this) { stories ->
+            stories.forEach { story ->
+                val latLng = LatLng(story.lat, story.lon)
+                mMap.addMarker(MarkerOptions().position(latLng).title(story.name))
+                boundBuilder.include(latLng)
+            }
+            val bounds: LatLngBounds = boundBuilder.build()
+            mMap.animateCamera(
+                CameraUpdateFactory.newLatLngBounds(
+                    bounds,
+                    resources.displayMetrics.widthPixels,
+                    resources.displayMetrics.heightPixels,
+                    300
+                )
+            )
         }
     }
 
-    companion object {
-        const val EXTRA_TOKEN = "token"
-    }
 }

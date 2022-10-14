@@ -59,12 +59,16 @@ class DataRepository private constructor(
     fun getStory(): LiveData<PagingData<StoryEntity>> {
         @OptIn(ExperimentalPagingApi::class)
         return Pager(
-            config = PagingConfig(pageSize = 1),
+            config = PagingConfig(pageSize = 5),
             remoteMediator = StoryRemoteMediator(storyDatabase, apiService),
             pagingSourceFactory = {
                 storyDatabase.dao().getStories()
             }
         ).liveData
+    }
+
+    fun getStoryLocation(): LiveData<List<StoryEntity>> {
+        return dao.getStoryLocations()
     }
 
     fun register(

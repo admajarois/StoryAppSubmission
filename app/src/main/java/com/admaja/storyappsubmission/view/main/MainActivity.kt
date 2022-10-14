@@ -5,14 +5,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.admaja.storyappsubmission.R
-import com.admaja.storyappsubmission.data.Result
 import com.admaja.storyappsubmission.data.local.preferences.UserPreference
 import com.admaja.storyappsubmission.databinding.ActivityMainBinding
+import com.admaja.storyappsubmission.view.adapter.LoadingStateAdapter
 import com.admaja.storyappsubmission.view.adapter.StoryListAdapter
 import com.admaja.storyappsubmission.view.add.AddStoryActivity
 import com.admaja.storyappsubmission.view.login.LoginActivity
@@ -28,12 +26,16 @@ class MainActivity : AppCompatActivity() {
         val adapter = StoryListAdapter()
         val factory: MainViewModelFactory = MainViewModelFactory.getInstance(this)
         val mainViewModel: MainViewModel by viewModels { factory }
+        binding.rvListStory.adapter = adapter.withLoadStateFooter(
+            footer = LoadingStateAdapter {
+                adapter.retry()
+            }
+        )
         mainViewModel.story.observe(this) {
             adapter.submitData(lifecycle, it)
         }
         binding.apply {
-            rvListStory.layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.VERTICAL, false)
-            rvListStory.setHasFixedSize(true)
+            rvListStory.layoutManager = LinearLayoutManager(this@MainActivity)
             fabAddStory.setOnClickListener {
                 Intent(this@MainActivity, AddStoryActivity::class.java).apply {
                     startActivity(this)
@@ -66,10 +68,6 @@ class MainActivity : AppCompatActivity() {
             }
             else -> return false
         }
-    }
-
-    companion object {
-        const val EXTRA_TOKEN = "token"
     }
 
 }

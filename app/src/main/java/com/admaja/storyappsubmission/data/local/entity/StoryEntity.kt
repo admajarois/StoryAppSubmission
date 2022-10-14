@@ -1,7 +1,6 @@
 package com.admaja.storyappsubmission.data.local.entity
 
 import android.os.Parcelable
-import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName

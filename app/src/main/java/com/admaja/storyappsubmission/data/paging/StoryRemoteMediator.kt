@@ -10,6 +10,7 @@ import com.admaja.storyappsubmission.data.local.entity.StoryEntity
 import com.admaja.storyappsubmission.data.local.room.StoryDatabase
 import com.admaja.storyappsubmission.data.remote.config.ApiService
 import com.admaja.storyappsubmission.utils.INITIAL_PAGE_INDEX
+import com.admaja.storyappsubmission.utils.LOCATION
 
 
 @OptIn(ExperimentalPagingApi::class)
@@ -44,7 +45,7 @@ class StoryRemoteMediator(
         }
 
         try {
-            val responseData = apiService.getStories(page, state.pages.size)
+            val responseData = apiService.getStories(page, state.config.pageSize, LOCATION)
             val endOfPaginationReached = responseData.listStory.isEmpty()
 
             database.withTransaction {

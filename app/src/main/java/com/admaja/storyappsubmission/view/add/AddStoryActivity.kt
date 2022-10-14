@@ -19,7 +19,6 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import com.admaja.storyappsubmission.R
-import com.admaja.storyappsubmission.data.local.preferences.UserPreference
 import com.admaja.storyappsubmission.utils.createCustomTempFile
 import com.admaja.storyappsubmission.utils.reduceFileImage
 import com.admaja.storyappsubmission.utils.uriToFile

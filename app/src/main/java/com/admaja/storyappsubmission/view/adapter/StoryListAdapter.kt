@@ -15,6 +15,17 @@ import com.bumptech.glide.request.RequestOptions
 
 class StoryListAdapter: PagingDataAdapter<StoryEntity, StoryListAdapter.ItemViewHolder>(DIFF_CALLBACK) {
 
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
+        val binding = StoryItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ItemViewHolder(binding)
+    }
+
+    override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
+        val item = getItem(position)
+        if (item != null) {
+            holder.bind(item)
+        }
+    }
 
     class ItemViewHolder(private val binding: StoryItemBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(resultStory: StoryEntity) {
@@ -33,18 +44,6 @@ class StoryListAdapter: PagingDataAdapter<StoryEntity, StoryListAdapter.ItemView
                     }
                 }
             }
-        }
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
-        val binding = StoryItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ItemViewHolder(binding)
-    }
-
-    override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        val item = getItem(position)
-        if (item != null) {
-            holder.bind(item)
         }
     }
 
