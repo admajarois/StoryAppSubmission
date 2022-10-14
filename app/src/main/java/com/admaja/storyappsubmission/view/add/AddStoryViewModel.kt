@@ -8,9 +8,8 @@ import okhttp3.RequestBody
 class AddStoryViewModel(private val dataRepository: DataRepository): ViewModel() {
 
     fun addStory(
-        auth: String?,
         description: RequestBody,
         photo: MultipartBody.Part,
         lat: RequestBody?,
-        lon: RequestBody?) = dataRepository.addNewStory(auth, description, photo, lat, lon)
+        lon: RequestBody?) = dataRepository.addNewStory(description, photo, lat, lon)
 }

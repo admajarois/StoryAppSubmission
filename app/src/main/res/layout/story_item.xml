@@ -14,29 +14,41 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-                <ImageView
-                    android:id="@+id/iv_story"
-                    android:layout_width="wrap_content"
-                    android:layout_height="240dp"
-                    android:scaleType="fitCenter"
-                    android:adjustViewBounds="true"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:srcCompat="@tools:sample/backgrounds/scenic"
-                    android:contentDescription="@string/thumbnail_story" />
-
                 <TextView
                     android:id="@+id/tv_item_create_story"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
                     android:alpha=".8"
-                    android:textSize="20sp"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/iv_story"
+                    app:layout_constraintTop_toTopOf="parent"
                     tools:text="@string/title_story" />
+
+                <TextView
+                    android:id="@+id/tv_address"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_item_create_story"
+                    tools:text="@string/my_location" />
+
+                <ImageView
+                    android:id="@+id/iv_story"
+                    android:layout_width="wrap_content"
+                    android:layout_height="240dp"
+                    android:scaleType="fitXY"
+                    android:adjustViewBounds="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_address"
+                    tools:srcCompat="@tools:sample/backgrounds/scenic"
+                    android:contentDescription="@string/thumbnail_story" />
 
                 <TextView
                     android:id="@+id/tv_item_overview"
@@ -52,7 +64,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_item_create_story" />
+                    app:layout_constraintTop_toBottomOf="@+id/iv_story" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -39,4 +39,5 @@
     <string name="permissions">Not getting permission</string>
     <string name="title_activity_maps">MapsActivity</string>
     <string name="maps">Maps</string>
+    <string name="my_location">My location</string>
 </resources>

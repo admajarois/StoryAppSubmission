@@ -34,7 +34,7 @@ class LoginActivity : AppCompatActivity() {
             emailEditText.globalChange()
             passwordEditText.globalChange()
             buttonLogin.setOnClickListener {
-                loginViewModel.setLoginParamenter(emailEditText.text.toString(), passwordEditText.text.toString())
+                loginViewModel.setLoginParameter(emailEditText.text.toString(), passwordEditText.text.toString())
                 loginViewModel.login().observe(this@LoginActivity) {
                     if (it != null) {
                         when (it) {
@@ -127,5 +127,9 @@ class LoginActivity : AppCompatActivity() {
 
             })
         }
+    }
+
+    companion object {
+        const val TOKEN = "token"
     }
 }

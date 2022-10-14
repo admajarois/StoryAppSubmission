@@ -1,7 +1,6 @@
 package com.admaja.storyappsubmission.data.local.preferences
 
 import android.content.Context
-import androidx.lifecycle.LiveData
 import com.admaja.storyappsubmission.data.remote.response.LoginResult
 import com.admaja.storyappsubmission.utils.PREFS_NAME
 import com.admaja.storyappsubmission.utils.TOKEN
@@ -14,10 +13,10 @@ class UserPreference(context: Context) {
 
     private val editor = preference.edit()
 
-    fun setUser(value: LoginResult?) {
-        editor.putString(USER_ID, value?.userId)
-        editor.putString(USER_NAME, value?.name)
-        editor.putString(TOKEN, value?.token)
+    fun setUser(value: LoginResult) {
+        editor.putString(USER_ID, value.userId)
+        editor.putString(USER_NAME, value.name)
+        editor.putString(TOKEN, value.token)
         editor.apply()
     }
 
@@ -30,4 +29,5 @@ class UserPreference(context: Context) {
     }
 
     fun clearUserPreference() = editor.clear().apply()
+
 }

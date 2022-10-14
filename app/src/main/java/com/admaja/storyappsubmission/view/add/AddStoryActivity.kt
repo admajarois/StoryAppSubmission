@@ -59,7 +59,6 @@ class AddStoryActivity : AppCompatActivity() {
     private fun uploadStory() {
         if (getFile != null) {
             val file = reduceFileImage(getFile as File)
-            val auth = "Bearer "+UserPreference(this).getUser().token
             val description = binding.etInputDescription.text.toString().toRequestBody("text/plain".toMediaType())
             val requestImageFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
             val imageMultipart: MultipartBody.Part = MultipartBody.Part.createFormData(
@@ -72,7 +71,7 @@ class AddStoryActivity : AppCompatActivity() {
             val viewModel: AddStoryViewModel by viewModels {
                 viewModelFactory
             }
-            viewModel.addStory(auth, description, imageMultipart,null,null).observe(this) {
+            viewModel.addStory(description, imageMultipart,null,null).observe(this) {
                 if (it != null) {
                     when(it) {
                         is Result.Loading -> {

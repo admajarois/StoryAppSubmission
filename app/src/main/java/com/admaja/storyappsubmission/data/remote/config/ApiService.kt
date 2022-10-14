@@ -2,6 +2,7 @@ package com.admaja.storyappsubmission.data.remote.config
 
 import com.admaja.storyappsubmission.data.remote.response.LoginResponse
 import com.admaja.storyappsubmission.data.remote.response.BasicResponse
+import com.admaja.storyappsubmission.data.remote.response.ListStoryItem
 import com.admaja.storyappsubmission.data.remote.response.StoryResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -25,15 +26,15 @@ interface ApiService {
     ): Call<BasicResponse>
 
     @GET("stories")
-    fun getStories(
-        @Header("Authorization") auth : String?,
-        @Query("location") location : String?
-    ): Call<StoryResponse>
+    suspend fun getStories(
+        @Query("page") page : Int?,
+        @Query("size") size : Int?,
+        @Query("location") location : Int = 1
+    ): StoryResponse
 
     @Multipart
     @POST("stories")
     fun addStories(
-        @Header("Authorization") auth: String?,
         @Part("description") description: RequestBody,
         @Part file: MultipartBody.Part,
         @Part("lat") lat: RequestBody?,

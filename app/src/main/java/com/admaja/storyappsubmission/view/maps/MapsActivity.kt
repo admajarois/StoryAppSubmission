@@ -11,6 +11,9 @@ import com.admaja.storyappsubmission.R
 import com.admaja.storyappsubmission.data.local.preferences.UserPreference
 import com.admaja.storyappsubmission.databinding.ActivityMapsBinding
 import com.admaja.storyappsubmission.data.Result
+import com.admaja.storyappsubmission.view.main.MainActivity
+import com.admaja.storyappsubmission.view.main.MainViewModel
+import com.admaja.storyappsubmission.view.main.MainViewModelFactory
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -69,39 +72,38 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun addStoryMaker() {
-        val factory: MapsViewModelFactory = MapsViewModelFactory.getInstance(this)
-        val mapsViewModel: MapsViewModel by viewModels {
+        val factory: MainViewModelFactory = MainViewModelFactory.getInstance(this)
+        val mapsViewModel: MainViewModel by viewModels {
             factory
         }
-        val auth = mapsViewModel.getToken(this)
-        mapsViewModel.getStories(auth).observe(this) {
-            if (it != null) {
-                when(it) {
-                    is Result.Loading -> {
-
-                    }
-                    is Result.Success -> {
-                        it.data.forEach { story ->
-                            val latLng = LatLng(story.lat, story.lon)
-                            mMap.addMarker(MarkerOptions().position(latLng).title(story.name))
-                            boundBuilder.include(latLng)
-                        }
-                        val bounds: LatLngBounds = boundBuilder.build()
-                        mMap.animateCamera(
-                            CameraUpdateFactory.newLatLngBounds(
-                                bounds,
-                                resources.displayMetrics.widthPixels,
-                                resources.displayMetrics.heightPixels,
-                                300
-                            )
-                        )
-                    }
-                    is Result.Error -> {
-
-                    }
-                }
-            }
-        }
+//        mapsViewModel.getStories().observe(this) {
+//            if (it != null) {
+//                when(it) {
+//                    is Result.Loading -> {
+//
+//                    }
+//                    is Result.Success -> {
+//                        it.data.forEach { story ->
+//                            val latLng = LatLng(story.lat, story.lon)
+//                            mMap.addMarker(MarkerOptions().position(latLng).title(story.name))
+//                            boundBuilder.include(latLng)
+//                        }
+//                        val bounds: LatLngBounds = boundBuilder.build()
+//                        mMap.animateCamera(
+//                            CameraUpdateFactory.newLatLngBounds(
+//                                bounds,
+//                                resources.displayMetrics.widthPixels,
+//                                resources.displayMetrics.heightPixels,
+//                                300
+//                            )
+//                        )
+//                    }
+//                    is Result.Error -> {
+//
+//                    }
+//                }
+//            }
+//        }
     }
 
     private fun getMyLocation() {
@@ -113,5 +115,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         } else {
             requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
         }
+    }
+
+    companion object {
+        const val EXTRA_TOKEN = "token"
     }
 }

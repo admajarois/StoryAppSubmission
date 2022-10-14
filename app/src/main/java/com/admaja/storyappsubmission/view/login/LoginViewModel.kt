@@ -8,7 +8,7 @@ class LoginViewModel(private val dataRepository: DataRepository): ViewModel() {
     private var email = ""
     private var password = ""
 
-    fun setLoginParamenter(email: String, password: String) {
+    fun setLoginParameter(email: String, password: String) {
         this.email = email
         this.password = password
     }

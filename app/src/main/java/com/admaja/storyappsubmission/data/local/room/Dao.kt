@@ -1,6 +1,7 @@
 package com.admaja.storyappsubmission.data.local.room
 
 import androidx.lifecycle.LiveData
+import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -13,7 +14,7 @@ import kotlinx.coroutines.flow.Flow
 interface Dao {
 
     @Query("SELECT * FROM story_entity ORDER BY createdAt DESC")
-    fun getStories(): LiveData<List<StoryEntity>>
+    fun getStories(): PagingSource<Int, StoryEntity>
 
     @Query("SELECT * FROM story_entity ORDER BY createdAt DESC")
     suspend fun getStoriesForWidget(): List<StoryEntity>

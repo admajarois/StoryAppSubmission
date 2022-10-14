@@ -21,43 +21,19 @@ import com.admaja.storyappsubmission.view.maps.MapsActivity
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        val adapter = StoryListAdapter()
         val factory: MainViewModelFactory = MainViewModelFactory.getInstance(this)
-        val mainViewModel: MainViewModel by viewModels {
-            factory
-        }
-
-        val storyListAdapter = StoryListAdapter()
-        val auth = "Bearer "+UserPreference(this).getUser().token
-        mainViewModel.setAuth(auth)
-        mainViewModel.getStories().observe(this) {
-            if (it != null) {
-                when(it) {
-                    is Result.Loading -> {
-                        binding.layoutForLoading.root.visibility = View.VISIBLE
-                    }
-                    is Result.Success -> {
-                        binding.layoutForLoading.root.visibility = View.GONE
-                        val storyData = it.data
-                        storyListAdapter.submitList(storyData)
-                    }
-                    is Result.Error -> {
-                        binding.layoutForLoading.root.visibility = View.GONE
-                        Toast.makeText(this, R.string.error_message, Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }
+        val mainViewModel: MainViewModel by viewModels { factory }
+        mainViewModel.story.observe(this) {
+            adapter.submitData(lifecycle, it)
         }
         binding.apply {
             rvListStory.layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.VERTICAL, false)
             rvListStory.setHasFixedSize(true)
-            rvListStory.adapter = storyListAdapter
             fabAddStory.setOnClickListener {
                 Intent(this@MainActivity, AddStoryActivity::class.java).apply {
                     startActivity(this)
@@ -65,7 +41,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater = menuInflater
@@ -92,4 +67,9 @@ class MainActivity : AppCompatActivity() {
             else -> return false
         }
     }
+
+    companion object {
+        const val EXTRA_TOKEN = "token"
+    }
+
 }

@@ -1,13 +1,10 @@
 package com.admaja.storyappsubmission.view.adapter
 
-import android.app.Activity
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.app.ActivityOptionsCompat
-import androidx.core.util.Pair
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.admaja.storyappsubmission.R
 import com.admaja.storyappsubmission.data.local.entity.StoryEntity
@@ -16,10 +13,10 @@ import com.admaja.storyappsubmission.view.detail.DetailStoryActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 
-class StoryListAdapter: ListAdapter<StoryEntity, StoryListAdapter.ItemViewHolder>(DIFF_CALLBACK) {
+class StoryListAdapter: PagingDataAdapter<StoryEntity, StoryListAdapter.ItemViewHolder>(DIFF_CALLBACK) {
 
 
-    class ItemViewHolder(val binding: StoryItemBinding): RecyclerView.ViewHolder(binding.root) {
+    class ItemViewHolder(private val binding: StoryItemBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(resultStory: StoryEntity) {
             binding.apply {
                 Glide.with(itemView.context)
@@ -30,7 +27,6 @@ class StoryListAdapter: ListAdapter<StoryEntity, StoryListAdapter.ItemViewHolder
                 tvItemOverview.text = resultStory.description
                 itemView.setOnClickListener {
                     Intent(itemView.context, DetailStoryActivity::class.java).apply {
-                        putExtra(EXTRA_STORY, resultStory)
                         itemView.context.startActivity(
                             this
                         )
@@ -47,7 +43,9 @@ class StoryListAdapter: ListAdapter<StoryEntity, StoryListAdapter.ItemViewHolder
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val item = getItem(position)
-        holder.bind(item)
+        if (item != null) {
+            holder.bind(item)
+        }
     }
 
     companion object {
