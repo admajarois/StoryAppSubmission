@@ -10,6 +10,6 @@ class AddStoryViewModel(private val dataRepository: DataRepository): ViewModel()
     fun addStory(
         description: RequestBody,
         photo: MultipartBody.Part,
-        lat: RequestBody?,
-        lon: RequestBody?) = dataRepository.addNewStory(description, photo, lat, lon)
+        lat: RequestBody? = null,
+        lon: RequestBody? = null) = dataRepository.addNewStory(description, photo, lat, lon)
 }

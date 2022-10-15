@@ -80,6 +80,10 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.1'
     implementation 'androidx.room:room-ktx:2.4.3'
 
+    //maps
+    implementation 'com.google.android.gms:play-services-maps:18.1.0'
+    implementation 'com.google.android.gms:play-services-location:21.0.0'
+
     //lottie
     def lottieVersion = "3.6.0"
     implementation "com.airbnb.android:lottie:$lottieVersion"

@@ -38,6 +38,7 @@ class StoryListAdapter: PagingDataAdapter<StoryEntity, StoryListAdapter.ItemView
                 tvItemOverview.text = resultStory.description
                 itemView.setOnClickListener {
                     Intent(itemView.context, DetailStoryActivity::class.java).apply {
+                        putExtra(EXTRA_STORY, resultStory)
                         itemView.context.startActivity(
                             this
                         )
