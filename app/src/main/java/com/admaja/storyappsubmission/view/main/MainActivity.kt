@@ -36,16 +36,6 @@ class MainActivity : AppCompatActivity() {
                 REQUEST_CODE_PERMISSIONS
             )
         }
-//        val factory: MainViewModelFactory = MainViewModelFactory.getInstance(this)
-//        val mainViewModel: MainViewModel by viewModels { factory }
-//        binding.rvListStory.adapter = adapter.withLoadStateFooter(
-//            footer = LoadingStateAdapter {
-//                adapter.retry()
-//            }
-//        )
-//        mainViewModel.story.observe(this) {
-//            adapter.submitData(lifecycle, it)
-//        }
 
         binding.fabAddStory.setOnClickListener {
             Intent(this@MainActivity, AddStoryActivity::class.java).apply {
