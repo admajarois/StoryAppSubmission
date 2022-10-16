@@ -82,7 +82,6 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         getData()
-        Log.d("TAG", getData().toString())
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

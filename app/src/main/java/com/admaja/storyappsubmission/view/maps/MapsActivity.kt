@@ -7,6 +7,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import android.Manifest
 import androidx.activity.viewModels
+import androidx.paging.map
 import com.admaja.storyappsubmission.R
 import com.admaja.storyappsubmission.data.local.preferences.UserPreference
 import com.admaja.storyappsubmission.databinding.ActivityMapsBinding
@@ -64,6 +65,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private fun addStoryMaker() {
         val mapsViewModelFactory: MapsViewModelFactory = MapsViewModelFactory.getInstance(this)
         val mapsViewModel: MapViewModels by viewModels { mapsViewModelFactory }
+
         mapsViewModel.getStoryLocation().observe(this) { stories ->
             stories.forEach { story ->
                 val latLng = LatLng(story.lat, story.lon)

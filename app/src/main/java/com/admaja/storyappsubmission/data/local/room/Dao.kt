@@ -17,7 +17,7 @@ interface Dao {
     fun getStories(): PagingSource<Int, StoryEntity>
 
     @Query("SELECT * FROM story_entity")
-    fun getStoryLocations(): LiveData<List<StoryEntity>>
+    fun getStoryFromDatabase(): LiveData<List<StoryEntity>>
 
     @Query("SELECT * FROM story_entity ORDER BY createdAt DESC")
     suspend fun getStoriesForWidget(): List<StoryEntity>

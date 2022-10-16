@@ -4,6 +4,7 @@ package com.admaja.storyappsubmission.data
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
+import androidx.lifecycle.map
 import androidx.paging.*
 import com.admaja.storyappsubmission.data.local.entity.StoryEntity
 import com.admaja.storyappsubmission.data.local.preferences.UserPreference
@@ -51,8 +52,8 @@ class DataRepository private constructor(
         ).liveData
     }
 
-    fun getStoryLocation(): LiveData<List<StoryEntity>> {
-        return dao.getStoryLocations()
+    fun getStoryFromDatabase(): LiveData<List<StoryEntity>> {
+       return dao.getStoryFromDatabase()
     }
 
     fun doRegister(
