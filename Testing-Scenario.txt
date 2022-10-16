@@ -1,0 +1,32 @@
+Unit Testing
+1. Login
+    a. Ketika berhasil melakukan login
+        - Memastikan mengembalikan Result.Success
+        - Memastikan data tidak null
+        - Memastikan mendapatkan nilai token yang diharapkan
+    b. Ketika gagal login
+        - Memastikan mengembalikan Result.Error
+
+2. Sign Up
+    a. Ketika berhasil melakukan sign up
+        - Memastikan mengembalikan Result.Success
+        - Memastikan data tidak null
+        - Memastikan mendapatkan message sesuai yang diharapkan
+    b. Ketika gagal melakukan signup
+        - Memastikan mengembalikan Result.Error
+
+3. Add Story
+    a. Ketika berhasil menambahkan data story baru
+        - Memastikan mengembalikan Result.Success
+        - Memastikan data tidak null
+        - Memastikan mendapatkan message sesuai yang diharapkan
+    b. Ketika gagal melakukan signup
+        - Memastikan mengembailkan Result.Error
+
+4. Maps
+    - Memastikan data tidak null
+    - Memastikan mendapatkan jumlah data sesuai yang diharapkan
+
+5. Story
+    - Memastikan data tidak null
+    - Memastikan mendapatkan jumlah data sesuai yang diharapkan
