@@ -48,7 +48,6 @@ class RepositoryTest {
     private lateinit var dataRepository: DataRepository
     private lateinit var loginViewModel: LoginViewModel
     private lateinit var signUpViewModel: SignUpViewModel
-    private lateinit var mapViewModel: MapViewModels
     private lateinit var addStoryViewModel: AddStoryViewModel
     private val dummyEmail = "john@test.com"
     private val dummyPassword = "12345678"
@@ -66,7 +65,6 @@ class RepositoryTest {
     fun setup() {
         loginViewModel = LoginViewModel(dataRepository)
         signUpViewModel = SignUpViewModel(dataRepository)
-        mapViewModel = MapViewModels(dataRepository)
         addStoryViewModel = AddStoryViewModel(dataRepository)
     }
 

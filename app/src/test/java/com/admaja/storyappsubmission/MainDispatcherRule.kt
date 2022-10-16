@@ -5,7 +5,6 @@ import kotlinx.coroutines.test.TestDispatcher
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.setMain
-import net.bytebuddy.agent.VirtualMachine.ForOpenJ9.Dispatcher
 import org.junit.rules.TestWatcher
 import org.junit.runner.Description
 
