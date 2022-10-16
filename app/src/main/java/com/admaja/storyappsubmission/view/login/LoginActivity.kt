@@ -34,8 +34,9 @@ class LoginActivity : AppCompatActivity() {
             emailEditText.globalChange()
             passwordEditText.globalChange()
             buttonLogin.setOnClickListener {
-                loginViewModel.setLoginParameter(emailEditText.text.toString(), passwordEditText.text.toString())
-                loginViewModel.login().observe(this@LoginActivity) {
+                val email = emailEditText.text.toString()
+                val password = passwordEditText.text.toString()
+                loginViewModel.login(email, password).observe(this@LoginActivity) {
                     if (it != null) {
                         when (it) {
                             is Result.Loading -> {

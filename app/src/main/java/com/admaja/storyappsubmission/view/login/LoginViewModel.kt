@@ -5,14 +5,6 @@ import com.admaja.storyappsubmission.data.DataRepository
 
 class LoginViewModel(private val dataRepository: DataRepository): ViewModel() {
 
-    private var email = ""
-    private var password = ""
-
-    fun setLoginParameter(email: String, password: String) {
-        this.email = email
-        this.password = password
-    }
-
-    fun login() = dataRepository.login(email, password)
+    fun login(email: String, password: String) = dataRepository.login(email, password)
 
 }

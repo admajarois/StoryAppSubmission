@@ -12,6 +12,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import android.Manifest
+import android.util.Log
 import com.admaja.storyappsubmission.R
 import com.admaja.storyappsubmission.data.local.preferences.UserPreference
 import com.admaja.storyappsubmission.databinding.ActivityMainBinding
@@ -81,6 +82,7 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         getData()
+        Log.d("TAG", getData().toString())
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

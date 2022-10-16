@@ -1,8 +1,11 @@
 package com.admaja.storyappsubmission.view.adapter
 
+import android.app.Activity
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.app.ActivityOptionsCompat
+import androidx.core.util.Pair
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -37,6 +40,11 @@ class StoryListAdapter: PagingDataAdapter<StoryEntity, StoryListAdapter.ItemView
                 tvItemCreateStory.text = resultStory.name
                 tvItemOverview.text = resultStory.description
                 itemView.setOnClickListener {
+                    val options: ActivityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                        itemView.context as Activity,
+                        Pair(ivStory, "image"),
+                        Pair(tvItemCreateStory, "name")
+                    )
                     Intent(itemView.context, DetailStoryActivity::class.java).apply {
                         putExtra(EXTRA_STORY, resultStory)
                         itemView.context.startActivity(

@@ -34,9 +34,10 @@ class SignupActivity : AppCompatActivity() {
             etInputEmail.globalChange()
             etInputPassword.globalChange()
             buttonRegister.setOnClickListener {
-                signUpViewModel.setUser(etInputName.text.toString(),
-                etInputEmail.text.toString(), etInputPassword.text.toString())
-                signUpViewModel.register().observe(this@SignupActivity) {
+                val name = etInputName.text.toString()
+                val email = etInputEmail.text.toString()
+                val password = etInputPassword.text.toString()
+                signUpViewModel.register(name,email,password).observe(this@SignupActivity) {
                     if (it != null) {
                         when(it) {
                             is Result.Loading -> {

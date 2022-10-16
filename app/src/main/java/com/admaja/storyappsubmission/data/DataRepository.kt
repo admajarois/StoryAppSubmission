@@ -1,8 +1,9 @@
 package com.admaja.storyappsubmission.data
 
 
+import android.util.Log
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.liveData
 import androidx.paging.*
 import com.admaja.storyappsubmission.data.local.entity.StoryEntity
 import com.admaja.storyappsubmission.data.local.preferences.UserPreference
@@ -12,48 +13,31 @@ import com.admaja.storyappsubmission.data.paging.StoryRemoteMediator
 import com.admaja.storyappsubmission.data.remote.config.ApiService
 import com.admaja.storyappsubmission.data.remote.response.LoginResponse
 import com.admaja.storyappsubmission.data.remote.response.BasicResponse
-import com.admaja.storyappsubmission.utils.AppExecutors
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-
 
 class DataRepository private constructor(
     private val apiService: ApiService,
     private val dao: Dao,
     private val userPreference: UserPreference,
     private val storyDatabase: StoryDatabase,
-    private val appExecutors: AppExecutors
 ) {
-    private val loginResult = MediatorLiveData<Result<LoginResponse>>()
-
-    private val basicResult = MediatorLiveData<Result<BasicResponse>>()
 
     fun addNewStory(
         description: RequestBody,
         photo: MultipartBody.Part,
         lat: RequestBody?,
         lon: RequestBody?
-    ): LiveData<Result<BasicResponse>> {
-        basicResult.value = Result.Loading
-        val client = apiService.addStories(description, photo, lat, lon)
-        client.enqueue(object : Callback<BasicResponse> {
-            override fun onResponse(call: Call<BasicResponse>, response: Response<BasicResponse>) {
-                if (response.isSuccessful) {
-                    val basicResponse = response.body()
-                    if (basicResponse != null) {
-                        basicResult.value = Result.Success(basicResponse)
-                    }
-                }
-            }
+    ): LiveData<Result<BasicResponse>>  = liveData{
+        emit(Result.Loading)
+        try {
+            val response = apiService.addStories(description, photo, lat, lon)
+            emit(Result.Success(response))
 
-            override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
-                basicResult.value = Result.Error(t.message.toString())
-            }
-        })
-        return basicResult
+        }catch (e: Exception) {
+            Log.d("DataRepository", "addNewStory(): ${e.message.toString()}")
+            emit(Result.Error(e.message.toString()))
+        }
     }
 
     fun getStory(): LiveData<PagingData<StoryEntity>> {
@@ -71,52 +55,32 @@ class DataRepository private constructor(
         return dao.getStoryLocations()
     }
 
-    fun register(
+    fun doRegister(
         name: String?,
         email: String?,
         password: String?
-    ): LiveData<Result<BasicResponse>> {
-        basicResult.value = Result.Loading
-        val client = apiService.register(name, email, password)
-        client.enqueue(object : Callback<BasicResponse> {
-            override fun onResponse(
-                call: Call<BasicResponse>,
-                response: Response<BasicResponse>
-            ) {
-                if (response.isSuccessful) {
-                    val register = response.body()
-                    if (register != null) {
-                        basicResult.value = Result.Success(register)
-                    }
-                }
-            }
-
-            override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
-                basicResult.value = Result.Error(t.message.toString())
-            }
-        })
-        return basicResult
+    ): LiveData<Result<BasicResponse>> = liveData {
+        emit(Result.Loading)
+        try {
+            val response = apiService.register(name, email, password)
+            emit(Result.Success(response))
+        }catch (e: Exception) {
+            Log.d("DataRepository", "doRegister(): ${e.message.toString()}")
+            emit(Result.Error(e.message.toString()))
+        }
     }
 
-    fun login(email: String, password: String): LiveData<Result<LoginResponse>> {
-        loginResult.value = Result.Loading
-        val client = apiService.login(email, password)
-        client.enqueue(object : Callback<LoginResponse> {
-            override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
-                if (response.isSuccessful) {
-                    val user = response.body()
-                    if (user != null) {
-                        userPreference.setUser(user.loginResult)
-                        loginResult.value = Result.Success(user)
-                    }
-                }
-            }
-
-            override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
-                loginResult.value = Result.Error(t.message.toString())
-            }
-        })
-        return loginResult
+    fun login(email: String, password: String): LiveData<Result<LoginResponse>> = liveData {
+        emit(Result.Loading)
+        try {
+            val response = apiService.login(email, password)
+            val loginResult = response.loginResult
+            userPreference.setUser(loginResult)
+            emit(Result.Success(response))
+        } catch (e: Exception) {
+            Log.d("DataRepository", "login(): ${e.message.toString()}")
+            emit(Result.Error(e.message.toString()))
+        }
     }
 
     companion object {
@@ -127,10 +91,9 @@ class DataRepository private constructor(
             dao: Dao,
             userPreference: UserPreference,
             userDatabase: StoryDatabase,
-            appExecutors: AppExecutors
         ): DataRepository =
             instance ?: synchronized(this) {
-                instance ?: DataRepository(apiService, dao, userPreference, userDatabase, appExecutors)
+                instance ?: DataRepository(apiService, dao, userPreference, userDatabase)
             }.also { instance = it }
     }
 

@@ -15,10 +15,10 @@ object ApiConfig {
         } else {
             HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.NONE)
         }
-        val token = UserPreference(context).getUser().token
         val client: OkHttpClient = OkHttpClient.Builder()
             .addInterceptor(Interceptor {chain ->
                 val original = chain.request()
+                val token = UserPreference(context).getUser().token
                 val request = original.newBuilder()
                     .header("Authorization", "Bearer $token")
                     .method(original.method, original.body)

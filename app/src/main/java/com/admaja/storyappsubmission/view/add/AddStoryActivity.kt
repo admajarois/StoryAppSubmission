@@ -82,6 +82,7 @@ class AddStoryActivity : AppCompatActivity() {
                             Toast.makeText(this, it.data.message, Toast.LENGTH_SHORT).show()
                             Intent(this, MainActivity::class.java).apply {
                                 startActivity(this)
+                                finish()
                             }
                         }
                         is Result.Error -> {

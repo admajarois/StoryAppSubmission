@@ -12,18 +12,18 @@ import retrofit2.http.*
 interface ApiService {
     @FormUrlEncoded
     @POST("login")
-    fun login(
+    suspend fun login(
         @Field("email") email: String,
         @Field("password") password: String
-    ): Call<LoginResponse>
+    ): LoginResponse
 
     @FormUrlEncoded
     @POST("register")
-    fun register(
+    suspend fun register(
         @Field("name") name: String?,
         @Field("email") email: String?,
         @Field("password") password: String?
-    ): Call<BasicResponse>
+    ): BasicResponse
 
     @GET("stories")
     suspend fun getStories(
@@ -34,10 +34,10 @@ interface ApiService {
 
     @Multipart
     @POST("stories")
-    fun addStories(
+    suspend fun addStories(
         @Part("description") description: RequestBody,
         @Part file: MultipartBody.Part,
         @Part("lat") lat: RequestBody?,
         @Part("lon") lon: RequestBody?
-    ): Call<BasicResponse>
+    ): BasicResponse
 }
