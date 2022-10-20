@@ -4,7 +4,6 @@ package com.admaja.storyappsubmission.data
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
-import androidx.lifecycle.map
 import androidx.paging.*
 import com.admaja.storyappsubmission.data.local.entity.StoryEntity
 import com.admaja.storyappsubmission.data.local.preferences.UserPreference

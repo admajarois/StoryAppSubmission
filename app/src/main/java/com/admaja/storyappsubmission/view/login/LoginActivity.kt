@@ -25,7 +25,6 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val userPreference = UserPreference(this)
         val factory: LoginViewModelFactory = LoginViewModelFactory.getInstance(this)
         val loginViewModel:LoginViewModel by viewModels {
             factory
@@ -48,7 +47,6 @@ class LoginActivity : AppCompatActivity() {
                                 if (it.data.error) {
                                     Toast.makeText(this@LoginActivity, R.string.login_failed, Toast.LENGTH_SHORT).show()
                                 }
-                                userPreference.setUser(it.data.loginResult)
                                 Toast.makeText(this@LoginActivity, R.string.login_success, Toast.LENGTH_SHORT).show()
                                 goHome()
                             }
@@ -132,7 +130,4 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    companion object {
-        const val TOKEN = "token"
-    }
 }
