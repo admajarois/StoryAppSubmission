@@ -66,13 +66,16 @@ class DataRepositoryTest {
         val expectedData = DataDummy.basicResponse()
         val actualResponse = apiService.register(dummyName, dummyEmail, dummyPassword)
         Assert.assertNotNull(actualResponse)
+        Assert.assertFalse(actualResponse.error?:true)
         Assert.assertEquals(expectedData.message, actualResponse.message)
     }
+
     @Test
     fun `When login Success`() = runTest {
         val expectedResponse = DataDummy.loginResponse()
         val actualResponse = apiService.login(dummyEmail, dummyPassword)
         Assert.assertNotNull(actualResponse)
+        Assert.assertFalse(actualResponse.error)
         Assert.assertEquals(expectedResponse.loginResult.userId, actualResponse.loginResult.userId)
     }
 
@@ -81,7 +84,7 @@ class DataRepositoryTest {
         val expectedResponse = DataDummy.basicResponse()
         val actualResponse = apiService.addStories(dummyDescription, dummyFile, dummyLat, dummyLon)
         Assert.assertNotNull(actualResponse)
-        Assert.assertFalse(actualResponse.error)
+        Assert.assertFalse(actualResponse.error?:true)
         Assert.assertEquals(expectedResponse.message, actualResponse.message)
     }
 
@@ -108,17 +111,19 @@ class DataRepositoryTest {
         val data = StoryPagingSource.snapshot(DataDummy.storyInDatabase())
         val expectedData = MutableLiveData<PagingData<StoryEntity>>()
         expectedData.value = data
-        val actualData: PagingData<StoryEntity> = dataRepository.getStory().getOrAwaitValue()
-        val differ = AsyncPagingDataDiffer(
-            diffCallback = StoryListAdapter.DIFF_CALLBACK,
-            updateCallback = noopListUpdateCallback,
-            workerDispatcher = Dispatchers.Main
-        )
-        differ.submitData(actualData)
-        Assert.assertNotNull(differ.snapshot())
-        Assert.assertEquals(DataDummy.storyInDatabase(), differ.snapshot())
-        Assert.assertEquals(DataDummy.storyInDatabase().size, differ.snapshot().size)
-        Assert.assertEquals(DataDummy.storyInDatabase()[0].id, differ.snapshot()[0]?.id)
+        CoroutineScope(Dispatchers.IO).launch {
+            val actualData: PagingData<StoryEntity> = dataRepository.getStory().getOrAwaitValue()
+            val differ = AsyncPagingDataDiffer(
+                diffCallback = StoryListAdapter.DIFF_CALLBACK,
+                updateCallback = noopListUpdateCallback,
+                workerDispatcher = Dispatchers.Main
+            )
+            differ.submitData(actualData)
+            Assert.assertNotNull(differ.snapshot())
+            Assert.assertEquals(DataDummy.storyInDatabase(), differ.snapshot())
+            Assert.assertEquals(DataDummy.storyInDatabase().size, differ.snapshot().size)
+            Assert.assertEquals(DataDummy.storyInDatabase()[0].id, differ.snapshot()[0]?.id)
+        }
     }
 
     private val noopListUpdateCallback = object : ListUpdateCallback {
