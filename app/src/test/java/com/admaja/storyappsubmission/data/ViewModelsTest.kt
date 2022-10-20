@@ -1,19 +1,17 @@
 package com.admaja.storyappsubmission.data
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.AsyncPagingDataDiffer
 import androidx.paging.PagingData
-import androidx.paging.PagingSource
-import androidx.paging.PagingState
 import androidx.recyclerview.widget.ListUpdateCallback
 import com.admaja.storyappsubmission.DataDummy
-import com.admaja.storyappsubmission.MainDispatcherRule
+import com.admaja.storyappsubmission.utils.MainDispatcherRule
 import com.admaja.storyappsubmission.data.local.entity.StoryEntity
 import com.admaja.storyappsubmission.data.remote.response.BasicResponse
 import com.admaja.storyappsubmission.data.remote.response.LoginResponse
 import com.admaja.storyappsubmission.getOrAwaitValue
+import com.admaja.storyappsubmission.utils.StoryPagingSource
 import com.admaja.storyappsubmission.view.adapter.StoryListAdapter
 import com.admaja.storyappsubmission.view.add.AddStoryViewModel
 import com.admaja.storyappsubmission.view.login.LoginViewModel
@@ -36,7 +34,7 @@ import org.mockito.junit.MockitoJUnitRunner
 
 @ExperimentalCoroutinesApi
 @RunWith(MockitoJUnitRunner::class)
-class RepositoryTest {
+class ViewModelsTest {
 
     @get: Rule
     val instantExecutorRule = InstantTaskExecutorRule()
@@ -176,22 +174,6 @@ class RepositoryTest {
         Assert.assertEquals(dummyStoryEntity[0].name, differ.snapshot()[0]?.name)
     }
 
-    class StoryPagingSource: PagingSource<Int, LiveData<List<StoryEntity>>>(){
-        override fun getRefreshKey(state: PagingState<Int, LiveData<List<StoryEntity>>>): Int? {
-            return 0
-        }
-
-        override suspend fun load(params: LoadParams<Int>): LoadResult<Int, LiveData<List<StoryEntity>>> {
-            return LoadResult.Page(emptyList(), 0, 1)
-        }
-
-        companion object {
-            fun snapshot(items: List<StoryEntity>): PagingData<StoryEntity> {
-                return PagingData.from(items)
-            }
-        }
-
-    }
 
     private val noopListUpdateCallback = object : ListUpdateCallback {
         override fun onInserted(position: Int, count: Int) {}

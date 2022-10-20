@@ -17,10 +17,9 @@ import com.admaja.storyappsubmission.data.remote.response.BasicResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 
-class DataRepository private constructor(
+class DataRepository(
     private val apiService: ApiService,
     private val dao: Dao,
-    private val userPreference: UserPreference,
     private val storyDatabase: StoryDatabase,
 ) {
 
@@ -75,8 +74,6 @@ class DataRepository private constructor(
         emit(Result.Loading)
         try {
             val response = apiService.login(email, password)
-            val loginResult = response.loginResult
-            userPreference.setUser(loginResult)
             emit(Result.Success(response))
         } catch (e: Exception) {
             Log.d("DataRepository", "login(): ${e.message.toString()}")
@@ -90,11 +87,10 @@ class DataRepository private constructor(
         fun getInstance(
             apiService: ApiService,
             dao: Dao,
-            userPreference: UserPreference,
             userDatabase: StoryDatabase,
         ): DataRepository =
             instance ?: synchronized(this) {
-                instance ?: DataRepository(apiService, dao, userPreference, userDatabase)
+                instance ?: DataRepository(apiService, dao, userDatabase)
             }.also { instance = it }
     }
 

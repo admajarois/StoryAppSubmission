@@ -22,9 +22,9 @@ interface Dao {
     @Query("SELECT * FROM story_entity ORDER BY createdAt DESC")
     suspend fun getStoriesForWidget(): List<StoryEntity>
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insertStory(storyEntity: List<StoryEntity>)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertStory(storyEntity: List<StoryEntity>)
 
     @Query("DELETE FROM story_entity")
-    fun deleteAll()
+    suspend fun deleteAll()
 }
