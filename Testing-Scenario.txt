@@ -30,3 +30,33 @@ Unit Testing ViewModel
 5. Story
     - Memastikan data tidak null
     - Memastikan mendapatkan jumlah data sesuai yang diharapkan
+
+Unit Testing DataRepository
+1. Login
+    - Memastikan data tidak null
+    - Memastikan response tidak error
+    - Memastikan hasil yang didapatkan sesuai yang diharapkan
+
+2. Signup
+    - Memastikan data tidak null
+    - Memastikan response tidak error
+    - Memastikan hasil yang didapatkan sesuai yang diharapkan
+
+3. AddStory
+    - Memastikan data tidak null
+    - Memastikan response tidak error
+    - Memastikan hasil yang didapatkan sesuai yang
+
+4. Mengambil Story dari APi
+    - Memastikan data tidak null
+    - Memastikan response tidak error
+    - Memastikan hasil yang didapatkan sesuai yang
+
+5. Mengambil data dari database
+    - Memastikan data tidak null
+    - Memastikan hasil yang didapatkan sesuai yang
+
+6. Paging Story
+    - Memastikan data tidak null
+    - Memastikan ukuran data sesuai dengan ekspektasi
+    - Memastikan mendapatkan data sesuai yang diharapkan

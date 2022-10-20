@@ -6,9 +6,9 @@ import androidx.paging.*
 import androidx.recyclerview.widget.ListUpdateCallback
 import com.admaja.storyappsubmission.DataDummy
 import com.admaja.storyappsubmission.data.local.entity.StoryEntity
+import com.admaja.storyappsubmission.data.local.preferences.UserPreference
 import com.admaja.storyappsubmission.data.local.room.Dao
 import com.admaja.storyappsubmission.data.local.room.StoryDatabase
-import com.admaja.storyappsubmission.data.paging.StoryRemoteMediator
 import com.admaja.storyappsubmission.data.remote.config.ApiService
 import com.admaja.storyappsubmission.getOrAwaitValue
 import com.admaja.storyappsubmission.utils.MainDispatcherRule
@@ -25,7 +25,6 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
-import org.mockito.Mockito.`when`
 import org.mockito.junit.MockitoJUnitRunner
 
 @ExperimentalCoroutinesApi
@@ -46,6 +45,9 @@ class DataRepositoryTest {
     @Mock
     private lateinit var storyDatabase: StoryDatabase
 
+    @Mock
+    private lateinit var userPreference: UserPreference
+
     private val dummyEmail = "john@test.com"
     private val dummyPassword = "12345678"
     private val dummyName = "John Doe"
@@ -58,7 +60,7 @@ class DataRepositoryTest {
     fun setUp() {
         apiService = FakeApiService()
         dao = FakeStoryDao()
-        dataRepository = DataRepository(apiService, dao, storyDatabase)
+        dataRepository = DataRepository(apiService, dao,userPreference, storyDatabase)
     }
 
     @Test

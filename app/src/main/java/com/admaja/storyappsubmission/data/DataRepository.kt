@@ -20,6 +20,7 @@ import okhttp3.RequestBody
 class DataRepository(
     private val apiService: ApiService,
     private val dao: Dao,
+    private val userPreference: UserPreference,
     private val storyDatabase: StoryDatabase,
 ) {
 
@@ -74,6 +75,8 @@ class DataRepository(
         emit(Result.Loading)
         try {
             val response = apiService.login(email, password)
+            val loginResult = response.loginResult
+            userPreference.setUser(loginResult)
             emit(Result.Success(response))
         } catch (e: Exception) {
             Log.d("DataRepository", "login(): ${e.message.toString()}")
@@ -87,10 +90,11 @@ class DataRepository(
         fun getInstance(
             apiService: ApiService,
             dao: Dao,
+            userPreference: UserPreference,
             userDatabase: StoryDatabase,
         ): DataRepository =
             instance ?: synchronized(this) {
-                instance ?: DataRepository(apiService, dao, userDatabase)
+                instance ?: DataRepository(apiService, dao, userPreference, userDatabase)
             }.also { instance = it }
     }
 

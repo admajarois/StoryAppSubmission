@@ -13,6 +13,6 @@ object Injection {
         val database = StoryDatabase.getInstance(context)
         val dao = database.dao()
         val userPreference = UserPreference(context)
-        return DataRepository.getInstance(apiService, dao, database)
+        return DataRepository.getInstance(apiService, dao, userPreference, database)
     }
 }
