@@ -33,24 +33,29 @@ Unit Testing ViewModel
 
 Unit Testing DataRepository
 1. Login
-    - Memastikan data tidak null
-    - Memastikan response tidak error
-    - Memastikan hasil yang didapatkan sesuai yang diharapkan
+    a. Ketika login sukses
+        - Memastikan data tidak null
+        - Memastikan response tidak error
+        - Memastikan hasil yang didapatkan sesuai yang diharapkan
+    b. Ketika login gagal
+        - Memastikan hasil error dan tidak berhasil
 
 2. Signup
-    - Memastikan data tidak null
-    - Memastikan response tidak error
-    - Memastikan hasil yang didapatkan sesuai yang diharapkan
+    a. Ketika signup berhasil
+        - Memastikan data tidak null
+        - Memastikan response tidak error
+        - Memastikan hasil yang didapatkan sesuai yang diharapkan
+    b. Ketika Error
+        - Memastikan hasil error dan tidak berhasil
+
 
 3. AddStory
-    - Memastikan data tidak null
-    - Memastikan response tidak error
-    - Memastikan hasil yang didapatkan sesuai yang
-
-4. Mengambil Story dari APi
-    - Memastikan data tidak null
-    - Memastikan response tidak error
-    - Memastikan hasil yang didapatkan sesuai yang
+    a. Ketika add story berhasil
+        - Memastikan data tidak null
+        - Memastikan response tidak error
+        - Memastikan hasil yang didapatkan sesuai yang
+    b. Ketika add story gagal
+        - Memastikan response yang dihasilkan error
 
 5. Mengambil data dari database
     - Memastikan data tidak null
