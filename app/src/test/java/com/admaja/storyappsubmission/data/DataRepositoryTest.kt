@@ -26,6 +26,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
+import kotlin.math.exp
 
 @ExperimentalCoroutinesApi
 @RunWith(MockitoJUnitRunner::class)
@@ -55,6 +56,8 @@ class DataRepositoryTest {
     private val dummyDescription = DataDummy.requestBody("Dummy Description")
     private val dummyLat = DataDummy.requestBody("-7.795872")
     private val dummyLon = DataDummy.requestBody("110.384342")
+    private val dummyBasicResponse = DataDummy.basicResponse()
+    private val dummyLoginResponse = DataDummy.loginResponse()
 
     @Before
     fun setUp() {
@@ -65,45 +68,79 @@ class DataRepositoryTest {
 
     @Test
     fun `When doRegister Success`() = runTest {
-        val expectedData = DataDummy.basicResponse()
-        val actualResponse = apiService.register(dummyName, dummyEmail, dummyPassword)
-        Assert.assertNotNull(actualResponse)
-        Assert.assertFalse(actualResponse.error?:true)
-        Assert.assertEquals(expectedData.message, actualResponse.message)
+        val expectedData = dummyBasicResponse
+        val actualResponse = dataRepository.doRegister(dummyName, dummyEmail, dummyPassword).getOrAwaitValue()
+        if (actualResponse !is Result.Loading) {
+            Assert.assertNotNull(actualResponse)
+            Assert.assertTrue(actualResponse is Result.Success)
+            Assert.assertFalse(actualResponse is Result.Error)
+            Assert.assertEquals(expectedData.message, (actualResponse as Result.Success).data.message)
+        }
+    }
+
+    @Test
+    fun `When do Register Failed`() = runTest {
+        val expectedData = Result.Error("")
+        val actualResponse = dataRepository.doRegister(dummyName, dummyEmail, dummyPassword).getOrAwaitValue()
+        if (actualResponse !is Result.Loading) {
+            Assert.assertFalse(actualResponse is Result.Success)
+            Assert.assertTrue(actualResponse is Result.Error)
+            Assert.assertEquals(expectedData.error, (actualResponse as Result.Error).error)
+        }
     }
 
     @Test
     fun `When login Success`() = runTest {
-        val expectedResponse = DataDummy.loginResponse()
-        val actualResponse = apiService.login(dummyEmail, dummyPassword)
-        Assert.assertNotNull(actualResponse)
-        Assert.assertFalse(actualResponse.error)
-        Assert.assertEquals(expectedResponse.loginResult.userId, actualResponse.loginResult.userId)
+        val expectedResponse = dummyLoginResponse
+        val actualResponse = dataRepository.login(dummyEmail, dummyPassword).getOrAwaitValue()
+        if (actualResponse !is Result.Loading) {
+            Assert.assertNotNull(actualResponse)
+            Assert.assertTrue(actualResponse is Result.Success)
+            Assert.assertFalse(actualResponse is Result.Error)
+            Assert.assertEquals(expectedResponse.loginResult.userId, (actualResponse as Result.Success).data.loginResult.userId)
+        }
+    }
+
+    @Test
+    fun `When login Failed`() = runTest {
+        val expectedResponse = Result.Error("")
+        val actualResponse = dataRepository.login(dummyEmail, dummyPassword).getOrAwaitValue()
+        if (actualResponse !is Result.Loading) {
+            Assert.assertNull(actualResponse)
+            Assert.assertTrue(actualResponse is Result.Error)
+            Assert.assertFalse(actualResponse is Result.Success)
+            Assert.assertEquals(expectedResponse.error, (actualResponse as Result.Error).error)
+        }
     }
 
     @Test
     fun `When AddStory Success`() = runTest {
-        val expectedResponse = DataDummy.basicResponse()
-        val actualResponse = apiService.addStories(dummyDescription, dummyFile, dummyLat, dummyLon)
-        Assert.assertNotNull(actualResponse)
-        Assert.assertFalse(actualResponse.error?:true)
-        Assert.assertEquals(expectedResponse.message, actualResponse.message)
+        val expectedResponse = dummyBasicResponse
+        val actualResponse = dataRepository.addNewStory(dummyDescription, dummyFile, dummyLat, dummyLon).getOrAwaitValue()
+        if (actualResponse !is Result.Loading) {
+            Assert.assertNotNull(actualResponse)
+            Assert.assertFalse(actualResponse is Result.Error)
+            Assert.assertTrue(actualResponse is Result.Success)
+            Assert.assertEquals(expectedResponse.message, (actualResponse as Result.Success).data.message)
+        }
     }
 
     @Test
-    fun `When get story from API Success`() = runTest {
-        val expectedResponse = DataDummy.storyResponse()
-        val actualResponse = apiService.getStories(null, null, 1)
-        Assert.assertNotNull(actualResponse)
-        Assert.assertFalse(actualResponse.error)
-        Assert.assertEquals(expectedResponse.listStory.size, actualResponse.listStory.size)
+    fun `When AddStory Failed`() = runTest {
+        val expectedResponse = Result.Error("")
+        val actualResponse = dataRepository.addNewStory(dummyDescription, dummyFile, dummyLat, dummyLon).getOrAwaitValue()
+        if (actualResponse !is Result.Loading) {
+            Assert.assertFalse(actualResponse is Result.Success)
+            Assert.assertTrue(actualResponse is Result.Error)
+            Assert.assertEquals(expectedResponse.error, (actualResponse as Result.Error).error)
+        }
     }
 
     @Test
     fun `When Add and Get Story From Database Not Null and Success`() = runTest {
         val expectedData = DataDummy.storyInDatabase()
         dao.insertStory(DataDummy.storyInDatabase())
-        val actualData = dao.getStoryFromDatabase().getOrAwaitValue()
+        val actualData = dataRepository.getStoryFromDatabase().getOrAwaitValue()
         Assert.assertNotNull(actualData)
         Assert.assertEquals(expectedData.size, actualData.size)
     }
